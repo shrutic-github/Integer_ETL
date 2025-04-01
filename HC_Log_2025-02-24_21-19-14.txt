@@ -1,0 +1,1426 @@
+﻿Total mobatch duration: 8m39s
+Average duration per site with status OK: 8m38s
+Logfiles stored in ./HC_LOG/Logfile_2025-02-24_21-19-14_MAL03377
+[pp5998@scp-3-scripting(AKR1E5ENM) ~]$  cd HC_LOG/Logfile_2025-02-24_21-19-14_MAL03377 
+[pp5998@scp-3-scripting(AKR1E5ENM) Logfile_2025-02-24_21-19-14_MAL03377]$  cat *.log 
+Logging to file ./HC_LOG/Logfile_2025-02-24_21-19-14_MAL03377/MAL03377.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-24.0f 
+  Copyright (c) Ericsson AB 2001-2024 - All Rights Reserved
+              
+           
+$amosrb_pid = 4698
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+MAL03377> 
+
+MAL03377> lt all
+
+250224-10:49:38-0500 2001:506:4450:41e8:0:0:3173:2 24.0f  stopfile=/tmp/4618
+Looking up temporary_amos account... OK.
+Trying temporary_amos_pp5998_309's password from amos lookupAccount ... OK
+
+$ssh_pid = 7946
+
+Connected to 2001:506:4450:41e8:0:0:3173:2 (SubNetwork=ONRM_ROOT_MO,MeContext=MAL03377,ManagedElement=MAL03377)
+
+Checking MOM version...MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/pp5998/logs_moshell/tempfiles/scp-3-scripting_20250224-104931_4567/MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6.xml.cache.gz ......................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_24.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_24.Q1.txt ....................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_23.Q4.txt
+Connected to 2001:506:4450:41e8:0:0:3173:2 (SubNetwork=ONRM_ROOT_MO,MeContext=MAL03377,ManagedElement=MAL03377)
+
+Last MO: 17766. Loaded 17766 MOs. Total: 17767 MOs.
+
+MAL03377> s+
+
+Sorting of MO list by order of LDN: activated.
+
+MAL03377> get ^ManagedElement= ^networkManagedElementId$ > $Siteid
+
+250224-10:50:00-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+=================================================================================================================
+MO                                                      Attribute         Value
+=================================================================================================================
+ManagedElement=MAL03377                                 networkManagedElementId MAL03377
+=================================================================================================================
+Total: 1 MOs
+
+$Siteid = MAL03377
+
+MAL03377> 
+
+MAL03377> 
+
+MAL03377> print $Siteid:ALARM STATUS START
+
+MAL03377:ALARM STATUS START
+
+MAL03377> alc | awk -F";" '{print $1"_"$2";"$3";"$4";"$5}' | grep -v Alarms
+
+250224-10:50:00-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+
+Collecting Alarms...
+_;;;
+Date_Time;Severity;Object;Problem
+2025-02-24_15:44:45;Major;ManagedElement=MAL03377,Equipment=1,FieldReplaceableUnit=SAU,AlarmPort=1;External Alarm
+2025-02-22_17:48:13;Minor;ManagedElement=MAL03377,ENodeBFunction=1;External Link Failure
+
+MAL03377> print $Siteid:ALARM STATUS END
+
+MAL03377:ALARM STATUS END
+
+MAL03377> 
+
+MAL03377> print $Siteid:AVG PRB BRANCH RSSI START
+
+MAL03377:AVG PRB BRANCH RSSI START
+
+MAL03377> mr sect
+
+250224-10:50:01-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+
+MO group sect does not exist.
+
+MAL03377> ma sect SectorCarrier=.*,PmUlInterferenceReport=1
+
+250224-10:50:01-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+
+Added 12 MOs to group: sect
+
+MAL03377> l+mmos ~/HC_LOG/Logfile_2025-02-24_21-19-14_MAL03377/$Siteid_rssi.txt
+....................................................................................................
+waiting 17 seconds before next check...
+..................................................................................................................................
+MAL03377> l+mmos ~/HC_LOG/Logfile_2025-02-24_21-19-14_MAL03377/$Siteid_rssitemp.txt
+
+MAL03377> l cat ~/HC_LOG/Logfile_2025-02-24_21-19-14_MAL03377/$Siteid_rssitemp.txt | grep CellFDD | sort >> ~/HC_LOG/Logfile_2025-02-24_21-19-14_MAL03377/$Siteid_rssi.txt
+
+
+MAL03377> $sectorcno = $name -s SectorCarrier=
+
+$sectorcno = 4
+
+MAL03377> if $sectorcno ~ R0
+Enter commands (one per line), then type "fi"
+>       $count = 0
+>       for $mo in sect
+>               $name = ldn($mo)
+>               $name = $name -s ,PmUlInterferenceReport=.*
+>               $name = $name -s ENodeBFunction=1,
+>               $sectorcno = $name -s SectorCarrier=
+>               $count = $count + 1
+>               ! perl -pi.back -e 's/$name/SectorCarrier=$count/g;' ~/HC_LOG/Logfile_2025-02-24_21-19-14_MAL03377/$Siteid_rssi.txt
+>       done
+>       ! perl ~/HealthCheck/ULRSSI_PerBranch_v1d5a_cran.pl ~/HC_LOG/Logfile_2025-02-24_21-19-14_MAL03377/$Siteid_rssi.txt
+> else
+>       ! perl ~/HealthCheck/ULRSSI_PerBranch_v1d5a.pl ~/HC_LOG/Logfile_2025-02-24_21-19-14_MAL03377/$Siteid_rssi.txt
+> 
+> fi
+
+MAL03377> ! perl ~/HealthCheck/ULRSSI_PerBranch_v1d5a.pl ~/HC_LOG/Logfile_2025-02-24_21-19-14_MAL03377/$Siteid_rssi.txt
+
+
+                                                                       LTE REALTIME UL RSSI PER BRANCH                   
+=================================================================================================================================================================================
+                        AVG_ULRSSI      PRBGroup1-10    PRBGroup11-20   PRBGroup21-30   PRBGroup31-40   PRBGroup41-50   PRBGroup51-60       PRBGroup61-75   PRBGroup76-89   PRBGrp90-
+=================================================================================================================================================================================
+
+Cell: MAL03377_7A_1 
+SECTOR_1_Branch_1:      -112.89         -114.86         -113.70         -113.34         -113.47         -110.44
+SECTOR_1_Branch_2:      -108.97         -109.81         -110.38         -109.85         -110.09         -106.28
+
+Cell: MAL03377_7A_3_F 
+SECTOR_10_Branch_1:     -113.33         -114.13         -113.42         -113.52         -113.55         -112.26
+SECTOR_10_Branch_2:     -113.52         -115.26         -113.36         -112.84         -113.24         -113.27
+
+Cell: MAL03377_7B_3_F 
+SECTOR_11_Branch_1:     -115.01         -113.68         -114.72         -116.05         -115.55         -115.47
+SECTOR_11_Branch_2:     -113.93         -112.21         -113.78         -115.06         -114.95         -114.30
+
+Cell: MAL03377_7C_3_F 
+SECTOR_12_Branch_1:     -114.64         -114.65         -113.81         -114.25         -115.44         -115.26
+SECTOR_12_Branch_2:     -116.44         -117.02         -115.69         -115.98         -117.09         -116.61
+
+Cell: MAL03377_7B_1 
+SECTOR_2_Branch_1:      -112.08         -112.98         -114.23         -113.54         -114.21         -108.56
+SECTOR_2_Branch_2:      -111.75         -116.20         -113.56         -114.73         -114.43         -107.07
+
+Cell: MAL03377_7C_1 
+SECTOR_3_Branch_1:      -110.92         -112.92         -112.41         -112.73         -111.99         -107.47
+SECTOR_3_Branch_2:      -112.72         -112.79         -113.66         -114.40         -114.28         -110.08
+
+Cell: MAL03377_9A_1 
+SECTOR_4_Branch_1:      -117.74         -117.91         -117.39         -117.75         -117.90         -117.74         -118.39             -117.32         -117.03         -117.27
+SECTOR_4_Branch_2:      -117.44         -117.41         -117.49         -117.61         -117.25         -117.45         -117.78             -117.13         -116.57         -117.29
+
+Cell: MAL03377_9B_1 
+SECTOR_5_Branch_1:      -116.44         -117.14         -117.06         -116.79         -115.46         -115.99         -116.60             -116.55         -115.56         -115.56
+SECTOR_5_Branch_2:      -116.63         -117.00         -116.88         -116.56         -116.89         -115.91         -117.91             -117.00         -115.72         -116.07
+
+Cell: MAL03377_9C_1 
+SECTOR_6_Branch_1:      -114.04         -115.53         -115.82         -111.90         -115.15         -113.20         -115.76             -114.36         -115.26         -116.45
+SECTOR_6_Branch_2:      -115.00         -115.62         -115.98         -114.38         -114.86         -114.39         -116.22             -115.69         -116.03         -116.31
+
+Cell: MAL03377_3A_1 
+SECTOR_7_Branch_1:      -111.21         -111.84         -109.71         -111.30         -111.82         -111.79
+SECTOR_7_Branch_2:      -115.24         -115.31         -114.50         -115.30         -115.24         -115.98
+SECTOR_7_Branch_3:      -116.10         -116.43         -115.10         -116.17         -116.32         -116.67
+SECTOR_7_Branch_4:      -115.25         -115.48         -114.85         -115.55         -115.09         -115.31
+
+Cell: MAL03377_3B_1 
+SECTOR_8_Branch_1:      -115.95         -115.82         -116.09         -115.60         -115.96         -116.30
+SECTOR_8_Branch_2:      -115.85         -116.29         -115.61         -114.98         -115.73         -116.88
+SECTOR_8_Branch_3:      -103.43         -104.82         -104.15         -103.53         -102.95         -102.20
+SECTOR_8_Branch_4:      -115.91         -115.62         -115.17         -115.72         -116.49         -116.76
+
+Cell: MAL03377_3C_1 
+SECTOR_9_Branch_1:      -115.44         -115.66         -115.22         -114.95         -115.50         -115.96
+SECTOR_9_Branch_2:      -113.54         -113.82         -113.46         -113.13         -113.43         -113.92
+SECTOR_9_Branch_3:      -115.31         -115.87         -115.29         -114.47         -115.23         -115.83
+SECTOR_9_Branch_4:      -112.97         -113.17         -112.86         -112.74         -112.92         -113.19
+
+===============================================================================================================================================================================
+Thank you for using this RSSI report: For issues/modifications, please reach Shane Spiteri - ss4879 (shane.spiteri@teriwireless.com)
+
+MAL03377> print $Siteid:AVG PRB BRANCH RSSI END
+
+MAL03377:AVG PRB BRANCH RSSI END
+
+MAL03377> 
+
+MAL03377> print $Siteid:AVG PER BRANCH RSSI START
+
+MAL03377:AVG PER BRANCH RSSI START
+
+MAL03377> MFITRC
+
+250224-10:50:51-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+.....................
+Last MO: 17766. Loaded 17766 MOs. Total: 17767 MOs.
+....................
+2025-02-24 10:51
+================================================================================================================================
+CELL               ;SC;FRU   ;BOARD     ;PUSCH ;PUCCH ;     A;     B;     C;     D; DELTA
+================================================================================================================================
+FDD=MAL03377_3A_1  ;7 ;RRU-7 ;RRUS32B30 ;-114.0;-115.2;-111.5;-115.6;-115.5;-115.7;   4.2
+FDD=MAL03377_3B_1  ;8 ;RRU-8 ;RRUS32B30 ;-109.3;-109.1;-116.4;-105.3;-116.0;-116.1;  11.1
+FDD=MAL03377_3C_1  ;9 ;RRU-9 ;RRUS32B30 ;-113.9;-115.6;-113.7;-113.9;-114.0;-113.0;     1
+FDD=MAL03377_7A_1  ;1 ;RRU-1 ;RRUS11B12 ;-110.0;-106.4;-112.8;-108.9;      ;      ;   3.9
+FDD=MAL03377_7A_3_F;10;RRU-10;RRU4478B14;-113.4;-114.9;-108.3;-108.9;      ;      ;   0.6
+FDD=MAL03377_7B_1  ;2 ;RRU-2 ;RRUS11B12 ;-113.1;-105.7;-112.5;-111.8;      ;      ;   0.7
+FDD=MAL03377_7B_3_F;11;RRU-11;RRU4478B14;-114.3;-114.2;-115.3;-114.6;      ;      ;   0.7
+FDD=MAL03377_7C_1  ;3 ;RRU-3 ;RRUS11B12 ;-111.4;-107.3;-111.0;-112.9;      ;      ;   1.9
+FDD=MAL03377_7C_3_F;12;RRU-12;RRU4478B14;-112.8;-115.2;-112.5;-115.5;      ;      ;     3
+FDD=MAL03377_9A_1  ;4 ;RRU-4 ;RRUS12B2  ;-115.8;-118.2;-116.2;-116.0;      ;      ;   0.2
+FDD=MAL03377_9B_1  ;5 ;RRU-5 ;RRUS12B2  ;-115.5;-118.1;-115.5;-116.2;      ;      ;   0.7
+FDD=MAL03377_9C_1  ;6 ;RRU-6 ;RRUS12B2  ;-115.0;-116.3;-115.2;-115.2;      ;      ;     0
+================================================================================================================================
+
+MAL03377> print $Siteid:AVG PER BRANCH RSSI END
+
+MAL03377:AVG PER BRANCH RSSI END
+
+MAL03377> 
+
+MAL03377> 
+
+MAL03377> print $Siteid:RFBRANCH STATUS START
+
+MAL03377:RFBRANCH STATUS START
+
+MAL03377> hgetc ^RfBranch= auPortRef|rfPortRef|Attenuation|TrafficDelay|reservedBy|tmaRef
+
+250224-10:51:43-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+...................................................
+MO                            ;auPortRef                                                       ;dlAttenuation                                                                                                                   ;dlAttenuationPerFqRange;dlTrafficDelay                                                                                                                  ;dlTrafficDelayPerFqRange;reservedBy                                                        ;rfPortRef                           ;tmaRef;ulAttenuation                                                                                                                   ;ulAttenuationPerFqRange;ulTrafficDelay                                                                                                                  ;ulTrafficDelayPerFqRange
+AntennaUnitGroup=1,RfBranch=1 ;[1] = AntennaUnitGroup=1,AntennaUnit=1,AntennaSubunit=1,AuPort=1;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[1] = SectorEquipmentFunction=1                                   ;FieldReplaceableUnit=RRU-1,RfPort=A ;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=1,RfBranch=10;[1] = AntennaUnitGroup=1,AntennaUnit=3,AntennaSubunit=1,AuPort=2;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorEquipmentFunction=10 SectorCarrier=10 SectorCarrier=10;FieldReplaceableUnit=RRU-10,RfPort=B;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=1,RfBranch=11;[1] = AntennaUnitGroup=1,AntennaUnit=3,AntennaSubunit=1,AuPort=3;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[0] =                                                             ;FieldReplaceableUnit=RRU-10,RfPort=B;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=1,RfBranch=12;[1] = AntennaUnitGroup=1,AntennaUnit=3,AntennaSubunit=1,AuPort=4;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[0] =                                                             ;FieldReplaceableUnit=RRU-10,RfPort=D;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=1,RfBranch=2 ;[1] = AntennaUnitGroup=1,AntennaUnit=1,AntennaSubunit=1,AuPort=2;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[1] = SectorEquipmentFunction=1                                   ;FieldReplaceableUnit=RRU-1,RfPort=B ;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=1,RfBranch=3 ;[1] = AntennaUnitGroup=1,AntennaUnit=1,AntennaSubunit=2,AuPort=1;i[15] = 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6                                                                                           ;i[2] = -1 -1           ;i[15] = 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14                                                                            ;i[2] = -1 -1            ;[1] = SectorEquipmentFunction=4                                   ;FieldReplaceableUnit=RRU-4,RfPort=A ;      ;i[15] = 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6                                                                                           ;i[2] = -1 -1           ;i[15] = 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=1,RfBranch=4 ;[1] = AntennaUnitGroup=1,AntennaUnit=1,AntennaSubunit=2,AuPort=2;i[15] = 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6                                                                                           ;i[2] = -1 -1           ;i[15] = 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14                                                                            ;i[2] = -1 -1            ;[1] = SectorEquipmentFunction=4                                   ;FieldReplaceableUnit=RRU-4,RfPort=B ;      ;i[15] = 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6                                                                                           ;i[2] = -1 -1           ;i[15] = 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=1,RfBranch=5 ;[1] = AntennaUnitGroup=1,AntennaUnit=2,AntennaSubunit=1,AuPort=1;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=7 SectorCarrier=7 SectorEquipmentFunction=7   ;FieldReplaceableUnit=RRU-7,RfPort=A ;      ;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=1,RfBranch=6 ;[1] = AntennaUnitGroup=1,AntennaUnit=2,AntennaSubunit=1,AuPort=2;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=7 SectorCarrier=7 SectorEquipmentFunction=7   ;FieldReplaceableUnit=RRU-7,RfPort=C ;      ;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=1,RfBranch=7 ;[1] = AntennaUnitGroup=1,AntennaUnit=2,AntennaSubunit=1,AuPort=3;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=7 SectorCarrier=7 SectorEquipmentFunction=7   ;FieldReplaceableUnit=RRU-7,RfPort=B ;      ;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=1,RfBranch=8 ;[1] = AntennaUnitGroup=1,AntennaUnit=2,AntennaSubunit=1,AuPort=4;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=7 SectorCarrier=7 SectorEquipmentFunction=7   ;FieldReplaceableUnit=RRU-7,RfPort=D ;      ;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=1,RfBranch=9 ;[1] = AntennaUnitGroup=1,AntennaUnit=3,AntennaSubunit=1,AuPort=1;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorEquipmentFunction=10 SectorCarrier=10 SectorCarrier=10;FieldReplaceableUnit=RRU-10,RfPort=A;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=2,RfBranch=1 ;[1] = AntennaUnitGroup=2,AntennaUnit=1,AntennaSubunit=1,AuPort=1;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[1] = SectorEquipmentFunction=2                                   ;FieldReplaceableUnit=RRU-2,RfPort=A ;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=2,RfBranch=10;[1] = AntennaUnitGroup=2,AntennaUnit=3,AntennaSubunit=1,AuPort=2;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=11 SectorCarrier=11 SectorEquipmentFunction=11;FieldReplaceableUnit=RRU-11,RfPort=B;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=2,RfBranch=11;[0] =                                                           ;i[40] = -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ;i[4] = -1 -1 -1 -1     ;i[40] = -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ;i[4] = -1 -1 -1 -1      ;[0] =                                                             ;                                    ;      ;i[40] = -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ;i[4] = -1 -1 -1 -1     ;i[40] = -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ;i[4] = -1 -1 -1 -1      
+AntennaUnitGroup=2,RfBranch=12;[0] =                                                           ;i[40] = -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ;i[4] = -1 -1 -1 -1     ;i[40] = -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ;i[4] = -1 -1 -1 -1      ;[0] =                                                             ;                                    ;      ;i[40] = -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ;i[4] = -1 -1 -1 -1     ;i[40] = -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ;i[4] = -1 -1 -1 -1      
+AntennaUnitGroup=2,RfBranch=2 ;[1] = AntennaUnitGroup=2,AntennaUnit=1,AntennaSubunit=1,AuPort=2;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[1] = SectorEquipmentFunction=2                                   ;FieldReplaceableUnit=RRU-2,RfPort=B ;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=2,RfBranch=3 ;[1] = AntennaUnitGroup=2,AntennaUnit=1,AntennaSubunit=2,AuPort=1;i[15] = 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6                                                                                           ;i[2] = -1 -1           ;i[15] = 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14                                                                            ;i[2] = -1 -1            ;[1] = SectorEquipmentFunction=5                                   ;FieldReplaceableUnit=RRU-5,RfPort=A ;      ;i[15] = 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6                                                                                           ;i[2] = -1 -1           ;i[15] = 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=2,RfBranch=4 ;[1] = AntennaUnitGroup=2,AntennaUnit=1,AntennaSubunit=2,AuPort=2;i[15] = 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6                                                                                           ;i[2] = -1 -1           ;i[15] = 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14                                                                            ;i[2] = -1 -1            ;[1] = SectorEquipmentFunction=5                                   ;FieldReplaceableUnit=RRU-5,RfPort=B ;      ;i[15] = 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6                                                                                           ;i[2] = -1 -1           ;i[15] = 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=2,RfBranch=5 ;[1] = AntennaUnitGroup=2,AntennaUnit=2,AntennaSubunit=1,AuPort=1;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=8 SectorCarrier=8 SectorEquipmentFunction=8   ;FieldReplaceableUnit=RRU-8,RfPort=A ;      ;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=2,RfBranch=6 ;[1] = AntennaUnitGroup=2,AntennaUnit=2,AntennaSubunit=1,AuPort=2;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=8 SectorCarrier=8 SectorEquipmentFunction=8   ;FieldReplaceableUnit=RRU-8,RfPort=C ;      ;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=2,RfBranch=7 ;[1] = AntennaUnitGroup=2,AntennaUnit=2,AntennaSubunit=1,AuPort=3;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=8 SectorCarrier=8 SectorEquipmentFunction=8   ;FieldReplaceableUnit=RRU-8,RfPort=B ;      ;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=2,RfBranch=8 ;[1] = AntennaUnitGroup=2,AntennaUnit=2,AntennaSubunit=1,AuPort=4;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=8 SectorCarrier=8 SectorEquipmentFunction=8   ;FieldReplaceableUnit=RRU-8,RfPort=D ;      ;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=2,RfBranch=9 ;[1] = AntennaUnitGroup=2,AntennaUnit=3,AntennaSubunit=1,AuPort=1;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=11 SectorCarrier=11 SectorEquipmentFunction=11;FieldReplaceableUnit=RRU-11,RfPort=A;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=3,RfBranch=1 ;[1] = AntennaUnitGroup=3,AntennaUnit=1,AntennaSubunit=1,AuPort=1;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[1] = SectorEquipmentFunction=3                                   ;FieldReplaceableUnit=RRU-3,RfPort=A ;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=3,RfBranch=10;[1] = AntennaUnitGroup=3,AntennaUnit=3,AntennaSubunit=1,AuPort=4;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorEquipmentFunction=12 SectorCarrier=12 SectorCarrier=12;FieldReplaceableUnit=RRU-12,RfPort=B;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=3,RfBranch=2 ;[1] = AntennaUnitGroup=3,AntennaUnit=1,AntennaSubunit=1,AuPort=2;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[1] = SectorEquipmentFunction=3                                   ;FieldReplaceableUnit=RRU-3,RfPort=B ;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=3,RfBranch=3 ;[1] = AntennaUnitGroup=3,AntennaUnit=1,AntennaSubunit=2,AuPort=1;i[15] = 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6                                                                                           ;i[2] = -1 -1           ;i[15] = 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14                                                                            ;i[2] = -1 -1            ;[1] = SectorEquipmentFunction=6                                   ;FieldReplaceableUnit=RRU-6,RfPort=A ;      ;i[15] = 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6                                                                                           ;i[2] = -1 -1           ;i[15] = 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=3,RfBranch=4 ;[1] = AntennaUnitGroup=3,AntennaUnit=1,AntennaSubunit=2,AuPort=2;i[15] = 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6                                                                                           ;i[2] = -1 -1           ;i[15] = 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14                                                                            ;i[2] = -1 -1            ;[1] = SectorEquipmentFunction=6                                   ;FieldReplaceableUnit=RRU-6,RfPort=B ;      ;i[15] = 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6                                                                                           ;i[2] = -1 -1           ;i[15] = 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=3,RfBranch=5 ;[1] = AntennaUnitGroup=3,AntennaUnit=2,AntennaSubunit=1,AuPort=1;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=9 SectorCarrier=9 SectorEquipmentFunction=9   ;FieldReplaceableUnit=RRU-9,RfPort=A ;      ;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=3,RfBranch=6 ;[1] = AntennaUnitGroup=3,AntennaUnit=2,AntennaSubunit=1,AuPort=2;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=9 SectorCarrier=9 SectorEquipmentFunction=9   ;FieldReplaceableUnit=RRU-9,RfPort=C ;      ;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=3,RfBranch=7 ;[1] = AntennaUnitGroup=3,AntennaUnit=2,AntennaSubunit=1,AuPort=3;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=9 SectorCarrier=9 SectorEquipmentFunction=9   ;FieldReplaceableUnit=RRU-9,RfPort=B ;      ;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=3,RfBranch=8 ;[1] = AntennaUnitGroup=3,AntennaUnit=2,AntennaSubunit=1,AuPort=4;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorCarrier=9 SectorCarrier=9 SectorEquipmentFunction=9   ;FieldReplaceableUnit=RRU-9,RfPort=D ;      ;i[15] = 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+AntennaUnitGroup=3,RfBranch=9 ;[1] = AntennaUnitGroup=3,AntennaUnit=3,AntennaSubunit=1,AuPort=3;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            ;[3] = SectorEquipmentFunction=12 SectorCarrier=12 SectorCarrier=12;FieldReplaceableUnit=RRU-12,RfPort=A;      ;i[15] = 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3                                                                                           ;i[2] = -1 -1           ;i[15] = 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32                                                                            ;i[2] = -1 -1            
+
+MAL03377> print $Siteid:RFBRANCH STATUS END
+
+MAL03377:RFBRANCH STATUS END
+
+MAL03377> 
+
+MAL03377> print $Siteid:BASIC DETAIL START
+
+MAL03377:BASIC DETAIL START
+
+MAL03377> lst eran
+
+250224-10:51:44-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+===================================================================================
+Proxy  Adm State     Op. State     MO
+===================================================================================
+ 2991  1 (UNLOCKED)                SystemFunctions=1,HealthCheckM=1,HcRule=CommonFunction_CheckBERandPowerLossForOpticalLink
+===================================================================================
+Total: 1 MOs
+
+MAL03377> print $Siteid:BASIC DETAIL END
+
+MAL03377:BASIC DETAIL END
+
+MAL03377> 
+
+MAL03377> print $Siteid:HARDWARE INVENTORY START
+
+MAL03377:HARDWARE INVENTORY START
+
+MAL03377> sdir
+
+250224-10:51:44-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+INFO: Using amos lookupAccount credentials for the export login
+...................
+get /rop/A20250224.1500-1515_MAL03377.xml.gz /ericsson/log/amos/moshell_logfiles/pp5998/logs_moshell/pmfiles/2001.506.4450.41e8.0.0.3173.2/rop/A20250224.1500-1515_MAL03377.xml.gz ... OK
+get /rop/A20250224.1515-1530_MAL03377.xml.gz /ericsson/log/amos/moshell_logfiles/pp5998/logs_moshell/pmfiles/2001.506.4450.41e8.0.0.3173.2/rop/A20250224.1515-1530_MAL03377.xml.gz ... OK
+get /rop/A20250224.1530-1545_MAL03377.xml.gz /ericsson/log/amos/moshell_logfiles/pp5998/logs_moshell/pmfiles/2001.506.4450.41e8.0.0.3173.2/rop/A20250224.1530-1545_MAL03377.xml.gz ... OK
+......Checking available boards on node...
+
+Collecting RCS board data ...
+....................................................................................
+.....................
+.................................................................................................................................................................................................................................................................................................................
+....
+Collecting TN data...
+...............................................................................................................................
+Getting MO data from node (151 MOs). Please wait...
+0%                                             ~50%                                           ~100%
+.........................................................................................................................................
+Collecting RF data...
+..........................
+Collecting Alarms...
+......Executing action Log.export()
+...
+Log=AlarmLog                    actionId=52559
+.................................
+Executing action LogM.exportAvailabilityLog()
+..LogM=1,exportAvailabilityLog    actionId=52560
+.................................Parsing alarmLog............Done.
+Parsing availabilityLog........Done.
+................
+
+Total: 15 CPRI links (15 OK, 0 OKW, 0 NOK, 0 NT)
+......................
++--------+                      +---------------+
+|        | A        O25      D1 |    RRU-10     |
+|        |----------1/11--------|  RRU4478B14   |
+|        |         OK-91m       |     BXP_2     |
+|        |                      +---------------+
+|        |                        |A  |B  |C  |D
+|        |         SE=10 AG=1 FDD=7A_3_F  |   |
+|        |
+|        |                      +---------------+
+|        | B        O25      D1 |    RRU-11     |
+|        |----------2/13--------|  RRU4478B14   |
+|        |         OK-91m       |     BXP_3     |
+|        |                      +---------------+
+|        |                        |A  |B  |C  |D
+|        |                    SE=11 AG=2  |   |
+|        |                    FDD=7B_3_F  |   |
+|        |
+|        |                      +---------------+
+|        | C        O25      D1 |    RRU-12     |
+|        |----------3/15--------|  RRU4478B14   |
+|        |         OK-91m       |     BXP_4     |
+|        |                      +---------------+
+|        |                        |A  |B  |C  |D
+|        |                    SE=12 AG=3  |   |
+|        |                    FDD=7C_3_F  |   |
+|        |
+|        |                      +---------+           +----------+
+|        | D        E98       1 |         | 16 O25 D1 |  RRU-4   |
+|        |----------4/4---------|         |----7/7----| RRUS12B2 |
+|        |         OK-1m        |         |   OK-73m  |  BXP_10  |
+|        |                      |         |           +----------+
+|        |                      |         |                |A  |B
+|        |                      |         |    SE=4 AG=1 FDD=9A_1
+|        |                      |         |
+|        |                      |         |           +-----------+
+|        |                      |         | 14 O25 D1 |   RRU-1   |
+|        |                      |         |----15/6---| RRUS11B12 |
+|        |                      |         |   OK-74m  |   BXP_9   |
+|        |                      |         |           +-----------+
+|        |                      |         |                 |A  |B
+|        |                      |         |     SE=1 AG=1 FDD=7A_1
+|        |                      |         |            NIOT=7A_1_I
+|        |                      |         |
+|        |                      |         |           +---------------+
+|   1    |                      |         | 13 O25 D1 |     RRU-7     |
+| BB5216 |                      |         |---14/10---|   RRUS32B30   |
+| 000100 |                      |         |  OK-244m  |     BXP_8     |
+|        |                      |         |           +---------------+
+|        |                      |         |             |A  |B  |C  |D
+|        |                      |         |         SE=7 AG=1 FDD=3A_1
+|        |                      + - - - - +
+|        |                      |         |           +----------+
+|        | E        E98       2 |         | 12 O25 D1 |  RRU-5   |
+|        |----------5/5---------|         |----13/2---| RRUS12B2 |
+|        |         OK-1m        |         |   OK-73m  |  BXP_7   |
+|        |                      |         |           +----------+
+|        |                      |         |                |A  |B
+|        |                      |         |    SE=5 AG=2 FDD=9B_1
+|        |                      |         |
+|        |                      |         |           +-----------+
+|        |                      |         | 10 O25 D1 |   RRU-2   |
+|        |                      | XMU03-1 |----12/8---| RRUS11B12 |
+|        |                      | XMU0301 |   OK-74m  |   BXP_6   |
+|        |                      |  BXP_5  |           +-----------+
+|        |                      |         |                 |A  |B
+|        |                      |         |     SE=2 AG=2 FDD=7B_1
+|        |                      |         |            NIOT=7B_1_I
+|        |                      |         |
+|        |                      |         |           +---------------+
+|        |                      |         | 9  O25 D1 |     RRU-8     |
+|        |                      |         |----8/12---|   RRUS32B30   |
+|        |                      |         |  OK-243m  |    BXP_11     |
+|        |                      |         |           +---------------+
+|        |                      |         |             |A  |B  |C  |D
+|        |                      |         |         SE=8 AG=2 FDD=3B_1
+|        |                      + - - - - +
+|        |                      |         |           +----------+
+|        | F        E98       3 |         | 7  O25 D1 |  RRU-6   |
+|        |----------6/1---------|         |----11/3---| RRUS12B2 |
+|        |         OK-2m        |         |   OK-73m  |  BXP_14  |
+|        |                      |         |           +----------+
+|        |                      |         |                |A  |B
+|        |                      |         |    SE=6 AG=3 FDD=9C_1
+|        |                      |         |
+|        |                      |         |            +--------+
+|        |                      |         | 5   O25 D1 | RRU-3  |
+|        |                      |         |-----10/9---| RRUS11 |
+|        |                      |         |    OK-74m  | BXP_13 |
+|        |                      |         |            +--------+
+|        |                      |         |               |A  |B
+|        |                      |         |   SE=3 AG=3 FDD=7C_1
+|        |                      |         |          NIOT=7C_1_I
+|        |                      |         |
+|        |                      |         |           +---------------+
+|        |                      |         | 4  O25 D1 |     RRU-9     |
+|        |                      |         |----9/14---|   RRUS32B30   |
+|        |                      |         |  OK-244m  |    BXP_12     |
+|        |                      |         |           +---------------+
+|        |                      |         |             |A  |B  |C  |D
++--------+                      +---------+         SE=9 AG=3 FDD=3C_1
+
+=====================================================================================================================================
+ID RiL Type Res MO1-MO2               BOARD1-BOARD2     AlmIDs Cells (States)                               Issue (Failed checks)
+=====================================================================================================================================
+ 1 11  O25  OK  1(A) RRU-10(D1)       BB5216 RRU4478B14        FDD=MAL03377_7A_3_F (1)                      Passed
+ 2 13  O25  OK  1(B) RRU-11(D1)       BB5216 RRU4478B14        FDD=MAL03377_7B_3_F (1)                      Passed
+ 3 15  O25  OK  1(C) RRU-12(D1)       BB5216 RRU4478B14        FDD=MAL03377_7C_3_F (1)                      Passed
+ 4 4   E98  OK  1(D) XMU03-1(1)       BB5216 XMU0301                                                        Passed
+ 5 5   E98  OK  1(E) XMU03-1(2)       BB5216 XMU0301                                                        Passed
+ 6 1   E98  OK  1(F) XMU03-1(3)       BB5216 XMU0301                                                        Passed
+ 7 7   O25  OK  XMU03-1(16) RRU-4(D1) XMU0301 RRUS12B2         FDD=MAL03377_9A_1 (1)                        Passed
+ 8 12  O25  OK  XMU03-1(9) RRU-8(D1)  XMU0301 RRUS32B30        FDD=MAL03377_3B_1 (1)                        Passed
+ 9 14  O25  OK  XMU03-1(4) RRU-9(D1)  XMU0301 RRUS32B30        FDD=MAL03377_3C_1 (1)                        Passed
+10 9   O25  OK  XMU03-1(5) RRU-3(D1)  XMU0301 RRUS11           FDD=MAL03377_7C_1 NIOT=MAL03377_7C_1_I (1,1) Passed
+11 3   O25  OK  XMU03-1(7) RRU-6(D1)  XMU0301 RRUS12B2         FDD=MAL03377_9C_1 (1)                        Passed
+12 8   O25  OK  XMU03-1(10) RRU-2(D1) XMU0301 RRUS11B12        FDD=MAL03377_7B_1 NIOT=MAL03377_7B_1_I (1,1) Passed
+13 2   O25  OK  XMU03-1(12) RRU-5(D1) XMU0301 RRUS12B2         FDD=MAL03377_9B_1 (1)                        Passed
+14 10  O25  OK  XMU03-1(13) RRU-7(D1) XMU0301 RRUS32B30        FDD=MAL03377_3A_1 (1)                        Passed
+15 6   O25  OK  XMU03-1(14) RRU-1(D1) XMU0301 RRUS11B12        FDD=MAL03377_7A_1 NIOT=MAL03377_7A_1_I (1,1) Passed
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Node: RadioNode L   CXP9024418/16_R3D40 (24.Q3)   LTE-FDD,LTE-IoT 
+
+=====================================================================================================================================
+FRU     ;LNH     ;BOARD      ;ST ;FAULT ;OPER ;MAINT ;STAT ;PRODUCTNUMBER   ;REV     ;SERIAL        ;DATE     ;PMTEMP ; TEMP ; UPT ;VOLT ;SW                  ;
+=====================================================================================================================================
+1       ;000100  ;BB5216     ; 1 ;  OFF ;  ON ;  OFF ;  ON ;KDU137925/31    ;R5A     ;CD3X633251    ;20180620 ;3 (OK) ;      ;5.87 ;48   ;                    ;
+RRU-1   ;BXP_9   ;RRUS11B12  ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KRC161241/1     ;R3B     ;CF81921906    ;20140606 ;       ; 38.5 ;5.87 ;     ;CXP9013268%6_R72HX  ;
+RRU-10  ;BXP_2   ;RRU4478B14 ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KRC161669/3     ;R1E     ;CF87325639    ;20200221 ;4 (OK) ; 28.5 ;73.3 ;53.3 ;CXP9013268%15_R99KJ ; (Radio4478B14)
+RRU-11  ;BXP_3   ;RRU4478B14 ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KRC161669/3     ;R1B     ;CF84589841    ;20171220 ;4 (OK) ; 34.4 ;73.3 ;51.4 ;CXP9013268%15_R99KJ ; (Radio4478B14)
+RRU-12  ;BXP_4   ;RRU4478B14 ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KRC161669/3     ;R1B     ;CF84575677    ;20171213 ;4 (OK) ; 36.5 ;73.3 ;53.0 ;CXP9013268%15_R99KJ ; (Radio4478B14)
+RRU-2   ;BXP_6   ;RRUS11B12  ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KRC161241/1     ;R2G     ;CF80027187    ;20111206 ;       ; 43.5 ;5.87 ;     ;CXP9013268%6_R72HX  ;
+RRU-3   ;BXP_13  ;RRUS11     ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KRC161241/1     ;R2G     ;CB4H411016    ;20110418 ;       ; 43.3 ;5.87 ;     ;CXP9013268%6_R72HX  ; (RRUS11B12)
+RRU-4   ;BXP_10  ;RRUS12B2   ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KRC161299/2     ;R1M     ;CF84324406    ;20170809 ;4 (OK) ; 52.8 ;5.87 ;54.4 ;CXP9013268%9_R94JK  ;
+RRU-5   ;BXP_7   ;RRUS12B2   ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KRC161299/2     ;R1M     ;CF83547260    ;20160926 ;4 (OK) ; 53.5 ;5.87 ;54.1 ;CXP9013268%9_R94JK  ;
+RRU-6   ;BXP_14  ;RRUS12B2   ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KRC161299/2     ;R1C     ;CF81980913    ;20140708 ;4 (OK) ; 53.3 ;5.87 ;54.5 ;CXP9013268%9_R94JK  ;
+RRU-7   ;BXP_8   ;RRUS32B30  ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KRC161423/1     ;R1F     ;E553248796    ;20190516 ;4 (OK) ; 55.0 ;5.87 ;53.8 ;CXP9013268%12_R94JK ;
+RRU-8   ;BXP_11  ;RRUS32B30  ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KRC161423/1     ;R1F     ;E553248832    ;20190516 ;4 (OK) ; 56.8 ;5.87 ;53.6 ;CXP9013268%12_R94JK ;
+RRU-9   ;BXP_12  ;RRUS32B30  ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KRC161423/1     ;R1F     ;E553262491    ;20190516 ;4 (OK) ; 56.5 ;5.87 ;53.5 ;CXP9013268%12_R94JK ;
+XMU03-1 ;BXP_5   ;XMU0301    ; 1 ;  OFF ;  ON ;  OFF ; N/A ;KDU137949/1     ;R2A     ;CD3Q889710    ;20170405 ;       ; 30.0 ;5.87 ;     ;CXP2020750%1_R94D01 ; (BbR503)
+SAU     ;Z??_001 ;SAU        ; 1 ;  OFF ;  ON ;  N/A ; N/A ;ZHY60117/1      ;R1D     ;CD34138530    ;20110718 ;       ;      ;     ;     ;                    ;
+SUP-1   ;Z??_002 ;SUP6601    ; 1 ;  OFF ;  ON ;  N/A ; N/A ;1/BFL901009/4   ;R1E     ;BR82605561    ;20130225 ;       ;      ;     ;     ;                    ;
+-------------------------------------------------------------------------------------------------------------------------------------
+
+=====================================================================================================================================
+AntennaNearUnit                       ;ST  ;TYPE   ;PRODUCTNR  ;REV       ;UNIQUEID             ;RfPort
+=====================================================================================================================================
+AntennaUnitGroup=1,AntennaNearUnit=1  ; 1  ;S-RET  ;SADC0401E  ;89-28C0G  ;CI62-1020-10-450209  ;FieldReplaceableUnit=RRU-1,RfPort=R
+AntennaUnitGroup=1,AntennaNearUnit=2  ; 1  ;S-RET  ;SADC0401E  ;89-28C0G  ;CI62-0620-10-449969  ;FieldReplaceableUnit=RRU-1,RfPort=R
+AntennaUnitGroup=1,AntennaNearUnit=3  ; 1  ;S-RET  ;SADC0401E  ;89-28C0G  ;CI62-0620-10-450108  ;FieldReplaceableUnit=RRU-1,RfPort=R
+AntennaUnitGroup=1,AntennaNearUnit=4  ; 1  ;S-RET  ;ACU-A20-N  ;HW04      ;RFA117QU097304       ;FieldReplaceableUnit=RRU-10,RfPort=R
+AntennaUnitGroup=1,AntennaNearUnit=5  ; 1  ;S-RET  ;ACU-A20-N  ;HW04      ;RFA117QU096306       ;FieldReplaceableUnit=RRU-10,RfPort=R
+AntennaUnitGroup=1,AntennaNearUnit=6  ; 1  ;S-RET  ;ACU-A20-N  ;HW04      ;RFA117QU096305       ;FieldReplaceableUnit=RRU-10,RfPort=R
+AntennaUnitGroup=1,AntennaNearUnit=7  ; 1  ;S-RET  ;ACU-A20-N  ;HW04      ;RFA117QU097303       ;FieldReplaceableUnit=RRU-10,RfPort=R
+AntennaUnitGroup=2,AntennaNearUnit=1  ; 1  ;S-RET  ;SADC0401E  ;89-28C0G  ;CI62-1020-10-450264  ;FieldReplaceableUnit=RRU-2,RfPort=R
+AntennaUnitGroup=2,AntennaNearUnit=2  ; 1  ;S-RET  ;SADC0401E  ;89-28C0G  ;CI62-1020-10-450245  ;FieldReplaceableUnit=RRU-2,RfPort=R
+AntennaUnitGroup=2,AntennaNearUnit=3  ; 1  ;S-RET  ;SADC0401E  ;89-28C0G  ;CI62-0620-10-449884  ;FieldReplaceableUnit=RRU-2,RfPort=R
+AntennaUnitGroup=2,AntennaNearUnit=4  ; 1  ;S-RET  ;ACU-A20-N  ;HW04      ;RFA117QU076767       ;FieldReplaceableUnit=RRU-11,RfPort=R
+AntennaUnitGroup=2,AntennaNearUnit=5  ; 1  ;S-RET  ;ACU-A20-N  ;HW04      ;RFA117QU076768       ;FieldReplaceableUnit=RRU-11,RfPort=R
+AntennaUnitGroup=2,AntennaNearUnit=6  ; 1  ;S-RET  ;ACU-A20-N  ;HW04      ;RFA117QU060806       ;FieldReplaceableUnit=RRU-11,RfPort=R
+AntennaUnitGroup=2,AntennaNearUnit=7  ; 1  ;S-RET  ;ACU-A20-N  ;HW04      ;RFA117QU060805       ;FieldReplaceableUnit=RRU-11,RfPort=R
+AntennaUnitGroup=3,AntennaNearUnit=1  ; 1  ;S-RET  ;SADC0401E  ;89-20C0G  ;CI61-1818-10-312312  ;FieldReplaceableUnit=RRU-3,RfPort=R
+AntennaUnitGroup=3,AntennaNearUnit=2  ; 1  ;S-RET  ;SADC0401E  ;89-20C0G  ;CI61-1818-10-313006  ;FieldReplaceableUnit=RRU-3,RfPort=R
+AntennaUnitGroup=3,AntennaNearUnit=3  ; 1  ;S-RET  ;SADC0401E  ;89-20C0G  ;CI61-1718-10-311429  ;FieldReplaceableUnit=RRU-3,RfPort=R
+AntennaUnitGroup=3,AntennaNearUnit=4  ; 1  ;S-RET  ;ACU-A20-N  ;HW04      ;RFA117QU109396       ;FieldReplaceableUnit=RRU-12,RfPort=R
+AntennaUnitGroup=3,AntennaNearUnit=5  ; 1  ;S-RET  ;ACU-A20-N  ;HW04      ;RFA117QU108924       ;FieldReplaceableUnit=RRU-12,RfPort=R
+AntennaUnitGroup=3,AntennaNearUnit=6  ; 1  ;S-RET  ;ACU-A20-N  ;HW04      ;RFA117QU109395       ;FieldReplaceableUnit=RRU-12,RfPort=R
+AntennaUnitGroup=3,AntennaNearUnit=7  ; 1  ;S-RET  ;ACU-A20-N  ;HW04      ;RFA117QU108923       ;FieldReplaceableUnit=RRU-12,RfPort=R
+-------------------------------------------------------------------------------------------------------------------------------------
+
+=====================================================================================================================================
+XPBOARD   ;ST ;FAULT ;OPER ;PRODUCTNUMBER ;REV ;SERIAL/NAME ;DATE     ; TEMP ;MO
+=====================================================================================================================================
+RBS6601   ;   ;      ;     ;503/BFL901009 ;R1C ;CH4006898   ;20130606 ;   18 ;Cabinet=1
+FANGROUP  ;   ;OFF   ;     ;              ;    ;            ;         ;      ;Cabinet=1,FanGroup=1
+GPS0301   ; 1 ;      ;     ;NCD90156/1    ;R1C ;TU8KDQ5537.1544 ;         ;      ;Synchronization=1,TimeSyncIO=1 (7:OperationalWithValidTime)
+-------------------------------------------------------------------------------------------------------------------------------------
+
+=====================================================================================================================================
+ID ;T ;RiL ;BPBP ;BOARD1     ;LNH1 ;PORT ;R ;LINK ;RATE  ; BER ;BOARD2     ;LNH2 ;PORT ;R ;LINK ;RATE  ; BER ;LENGTH ;MO1 - MO2
+=====================================================================================================================================
+ 1 ;O ; 11 ;1111 ;BB5216     ;000100 ; 1 ;M ;Up   ;2.5G  ;   0 ;RRU4478B14 ;BXP_2  ; 0 ;S ;Up   ;2.5G  ;   0 ;   91m ;Fru=1(A) Fru=RRU-10(D1)
+ 2 ;O ; 13 ;1111 ;BB5216     ;000100 ; 2 ;M ;Up   ;2.5G  ;   0 ;RRU4478B14 ;BXP_3  ; 0 ;S ;Up   ;2.5G  ;   0 ;   91m ;Fru=1(B) Fru=RRU-11(D1)
+ 3 ;O ; 15 ;1111 ;BB5216     ;000100 ; 3 ;M ;Up   ;2.5G  ;   0 ;RRU4478B14 ;BXP_4  ; 0 ;S ;Up   ;2.5G  ;   0 ;   91m ;Fru=1(C) Fru=RRU-12(D1)
+ 4 ;E ;  4 ;1111 ;BB5216     ;000100 ; 4 ;M ;Up   ;9.8G  ;   0 ;XMU0301    ;BXP_5  ; 0 ;S ;Up   ;9.8G  ;   0 ;    1m ;Fru=1(D) Fru=XMU03-1(1)
+ 5 ;E ;  5 ;1111 ;BB5216     ;000100 ; 5 ;M ;Up   ;9.8G  ;   0 ;XMU0301    ;BXP_5  ; 1 ;S ;Up   ;9.8G  ;   0 ;    1m ;Fru=1(E) Fru=XMU03-1(2)
+ 6 ;E ;  1 ;1111 ;BB5216     ;000100 ; 6 ;M ;Up   ;9.8G  ;   0 ;XMU0301    ;BXP_5  ; 2 ;S ;Up   ;9.8G  ;   0 ;    2m ;Fru=1(F) Fru=XMU03-1(3)
+ 7 ;O ;  7 ;1111 ;XMU0301    ;BXP_5  ;15 ;M ;Up   ;2.5G  ;   0 ;RRUS12B2   ;BXP_10 ; 0 ;S ;Up   ;2.5G  ;   0 ;   73m ;Fru=XMU03-1(16) Fru=RRU-4(D1)
+ 8 ;O ; 12 ;1111 ;XMU0301    ;BXP_5  ; 8 ;M ;Up   ;2.5G  ;   0 ;RRUS32B30  ;BXP_11 ; 0 ;S ;Up   ;2.5G  ;   0 ;  243m ;Fru=XMU03-1(9) Fru=RRU-8(D1)
+ 9 ;O ; 14 ;1111 ;XMU0301    ;BXP_5  ; 3 ;M ;Up   ;2.5G  ;   0 ;RRUS32B30  ;BXP_12 ; 0 ;S ;Up   ;2.5G  ;   0 ;  244m ;Fru=XMU03-1(4) Fru=RRU-9(D1)
+10 ;O ;  9 ;1111 ;XMU0301    ;BXP_5  ; 4 ;M ;Up   ;2.5G  ;   0 ;RRUS11     ;BXP_13 ; 0 ;S ;Up   ;2.5G  ;   0 ;   74m ;Fru=XMU03-1(5) Fru=RRU-3(D1)
+11 ;O ;  3 ;1111 ;XMU0301    ;BXP_5  ; 6 ;M ;Up   ;2.5G  ;   0 ;RRUS12B2   ;BXP_14 ; 0 ;S ;Up   ;2.5G  ;   0 ;   73m ;Fru=XMU03-1(7) Fru=RRU-6(D1)
+12 ;O ;  8 ;1111 ;XMU0301    ;BXP_5  ; 9 ;M ;Up   ;2.5G  ;   0 ;RRUS11B12  ;BXP_6  ; 0 ;S ;Up   ;2.5G  ;   0 ;   74m ;Fru=XMU03-1(10) Fru=RRU-2(D1)
+13 ;O ;  2 ;1111 ;XMU0301    ;BXP_5  ;11 ;M ;Up   ;2.5G  ;   0 ;RRUS12B2   ;BXP_7  ; 0 ;S ;Up   ;2.5G  ;   0 ;   73m ;Fru=XMU03-1(12) Fru=RRU-5(D1)
+14 ;O ; 10 ;1111 ;XMU0301    ;BXP_5  ;12 ;M ;Up   ;2.5G  ;   0 ;RRUS32B30  ;BXP_8  ; 0 ;S ;Up   ;2.5G  ;   0 ;  244m ;Fru=XMU03-1(13) Fru=RRU-7(D1)
+15 ;O ;  6 ;1111 ;XMU0301    ;BXP_5  ;13 ;M ;Up   ;2.5G  ;   0 ;RRUS11B12  ;BXP_9  ; 0 ;S ;Up   ;2.5G  ;   0 ;   74m ;Fru=XMU03-1(14) Fru=RRU-1(D1)
+-------------------------------------------------------------------------------------------------------------------------------------
+
+=====================================================================================================================================
+ID ;LINK ;RiL ;VENDOR1         ;VENDORPROD1      ;REV1 ;SERIAL1         ;DATE1    ;ERICSSONPROD1   ;VENDOR2         ;VENDORPROD2      ;REV2 ;SERIAL2         ;DATE2    ;ERICSSONPROD2   ;TT ;WL1     ;WL2    
+=====================================================================================================================================
+ 1 ;Up   ; 11 ;DELTA           ;LCP-2488B4HDRUE  ;A    ;2011060A1001522 ;20200310 ;RDH10247/25 R1A ;DELTA           ;LCP-2488B4HDRUE  ;A    ;2011060A1001521 ;20200310 ;RDH10247/25 R1A ;0  ;1310.00 ;1310.00
+ 2 ;Up   ; 13 ;DELTA           ;LCP-2488B4HDRUE  ;A    ;2011060A1001520 ;20200310 ;RDH10247/25 R1A ;DELTA           ;LCP-2488B4HDRUE  ;A    ;2011060A1001523 ;20200310 ;RDH10247/25 R1A ;0  ;1310.00 ;1310.00
+ 3 ;Up   ; 15 ;DELTA           ;LCP-2488B4HDRUE  ;A    ;2011060A1001519 ;20200310 ;RDH10247/25 R1A ;DELTA           ;LCP-2488B4HDRUE  ;A    ;2011060A1001528 ;20200310 ;RDH10247/25 R1A ;0  ;1310.00 ;1310.00
+ 7 ;Up   ;  7 ;WTD             ;RTXM192-466-C25  ;3.0  ;EB142700331437  ;20140709 ;RDH10247/3 R1A  ;SOURCEPHOTONICS ;SPMRIR1IDFBEN2   ;20   ;E6F2006255      ;20140514 ;RDH10247/3 R1A  ;0  ;1310.00 ;1310.00
+ 8 ;Up   ; 12 ;WTD             ;RTXM192-466-C26  ;3.0  ;EC181500680506  ;20180419 ;RDH10247/3 R2A  ;DELTA           ;LCP-2488B4JDRME1 ;A    ;1805061A1201025 ;20180131 ;RDH10247/3 R2A  ;0  ;1310.00 ;1310.00
+ 9 ;Up   ; 14 ;WTD             ;RTXM192-466-C26  ;3.0  ;EC181500680447  ;20180419 ;RDH10247/3 R2A  ;DELTA           ;LCP-2488B4JDRME1 ;A    ;1805061A1201042 ;20180131 ;RDH10247/3 R2A  ;0  ;1310.00 ;1310.00
+10 ;Up   ;  9 ;DELTA           ;LCP-2488B4JDRT-E ;A    ;111206101355    ;20110323 ;RDH10247/3 R1A  ;DELTA           ;LCP-2488B4JDRT-E ;A    ;111206101044    ;20110322 ;RDH10247/3 R1A  ;0  ;1310.00 ;1310.00
+11 ;Up   ;  3 ;WTD             ;RTXM192-466-C25  ;3.0  ;EB142700331434  ;20140709 ;RDH10247/3 R1A  ;DELTA           ;LCP-2488B4JDRT-E ;A    ;143006113134    ;20140728 ;RDH10247/3 R1A  ;0  ;1310.00 ;1310.00
+12 ;Up   ;  8 ;OCLAROINC       ;TRF5926AVLB543   ;A1A  ;L14G64725       ;20140729 ;RDH10247/3 R1A  ;OPNEXTINC       ;TRF5926AVLB243   ;B2A  ;C11G51922       ;20110710 ;RDH10247/3 R1A  ;0  ;1310.00 ;1310.00
+13 ;Up   ;  2 ;WTD             ;RTXM192-466-C25  ;3.0  ;EB142900111073  ;20140718 ;RDH10247/3 R1A  ;DELTA           ;LCP-2488B4JDRM-E ;A    ;1702061A0201791 ;20170117 ;RDH10247/3 R2A  ;0  ;1310.00 ;1310.00
+14 ;Up   ; 10 ;DELTA           ;LCP-2488B4JDRME1 ;A    ;1815061A1202563 ;20180412 ;RDH10247/3 R2A  ;DELTA           ;LCP-2488B4JDRME1 ;A    ;1805061A1201041 ;20180131 ;RDH10247/3 R2A  ;0  ;1310.00 ;1310.00
+15 ;Up   ;  6 ;OPNEXTINC       ;TRF5926AVLB243   ;B2A  ;C11G51027       ;20110706 ;RDH10247/3 R1A  ;DELTA           ;LCP-2488B4JDRM-E ;A    ;1731061A0202314 ;20170802 ;RDH10247/3 R2A  ;0  ;1310.00 ;1310.00
+-------------------------------------------------------------------------------------------------------------------------------------
+
+=====================================================================================================================================
+ID ;LINK ;RiL ;WL1     ;TEMP1 ;TXbs1 ;TXdBm1 ;RXdBm1 ;BER1   ;WL2     ;TEMP2 ;TXbs2 ;TXdBm2 ;RXdBm2 ;BER2   ;DlLoss ;UlLoss ;LENGTH ;TT
+=====================================================================================================================================
+ 1 ;Up   ; 11 ;1310.00 ;38C   ;19%   ;-5.45  ;-5.09  ;   0   ;1310.00 ;30C   ;25%   ;-5.77  ;-6.00  ;   0   ;  0.55 ; -0.68 ;   91m ; 0
+ 2 ;Up   ; 13 ;1310.00 ;40C   ;21%   ;-6.00  ;-6.02  ;   0   ;1310.00 ;33C   ;23%   ;-5.99  ;-6.72  ;   0   ;  0.72 ;  0.03 ;   91m ; 0
+ 3 ;Up   ; 15 ;1310.00 ;38C   ;22%   ;-5.87  ;-6.44  ;   0   ;1310.00 ;31C   ;18%   ;-5.83  ;-7.38  ;   0   ;  1.51 ;  0.61 ;   91m ; 0
+ 7 ;Up   ;  7 ;1310.00 ;25C   ;19%   ;-1.88  ;-2.52  ;   0   ;1310.00 ;52C   ;9%    ;-2.37  ;-1.82  ;   0   ; -0.06 ;  0.15 ;   73m ; 0
+ 8 ;Up   ; 12 ;1310.00 ;29C   ;18%   ;-2.11  ;-2.34  ;   0   ;1310.00 ;49C   ;26%   ;-2.23  ;-2.57  ;   0   ;  0.46 ;  0.11 ;  243m ; 0
+ 9 ;Up   ; 14 ;1310.00 ;26C   ;18%   ;-2.20  ;-2.57  ;   0   ;1310.00 ;49C   ;27%   ;-2.30  ;-2.77  ;   0   ;  0.57 ;  0.27 ;  244m ; 0
+10 ;Up   ;  9 ;1310.00 ;26C   ;15%   ;-2.29  ;-2.98  ;   0   ;1310.00 ;41C   ;23%   ;-2.67  ;-2.29  ;   0   ;     0 ;  0.31 ;   74m ; 0
+11 ;Up   ;  3 ;1310.00 ;26C   ;20%   ;-1.97  ;-4.61  ;   0   ;1310.00 ;53C   ;26%   ;-2.56  ;-2.29  ;   0   ;  0.32 ;  2.05 ;   73m ; 0
+12 ;Up   ;  8 ;1310.00 ;35C   ;20%   ;-2.28  ;-0.95  ;   0   ;1310.00 ;49C   ;33%   ;0.02   ;-2.71  ;   0   ;  0.43 ;  0.97 ;   74m ; 0
+13 ;Up   ;  2 ;1310.00 ;27C   ;20%   ;-1.84  ;-3.03  ;   0   ;1310.00 ;47C   ;30%   ;-2.44  ;-2.28  ;   0   ;  0.44 ;  0.59 ;   73m ; 0
+14 ;Up   ; 10 ;1310.00 ;31C   ;19%   ;-2.18  ;-2.60  ;   0   ;1310.00 ;48C   ;25%   ;-2.19  ;-2.22  ;   0   ;  0.04 ;  0.41 ;  244m ; 0
+15 ;Up   ;  6 ;1310.00 ;41C   ;17%   ;-2.18  ;-3.21  ;   0   ;1310.00 ;40C   ;28%   ;-2.60  ;-2.31  ;   0   ;  0.13 ;  0.61 ;   74m ; 0
+-------------------------------------------------------------------------------------------------------------------------------------
+
+=====================================================================================================================================
+ID ;RiL ;BOARD      ;SFPLNH  ;PORT ;VENDOR          ;VENDORPROD       ;REV  ;SERIAL          ;DATE     ;ERICSSONPROD    ;WL      ;TEMP  ;TXbs  ;TXdBm  ;RXdBm  ; BER
+=====================================================================================================================================
+ 1 ; 11 ;BB5216     ;000100   ;  1 ;DELTA           ;LCP-2488B4HDRUE  ;A    ;2011060A1001522 ;20200310 ;RDH10247/25 R1A ;1310.00 ;38C   ;19%   ;-5.45  ;-5.09  ;   0
+ 2 ; 13 ;BB5216     ;000100   ;  2 ;DELTA           ;LCP-2488B4HDRUE  ;A    ;2011060A1001520 ;20200310 ;RDH10247/25 R1A ;1310.00 ;40C   ;21%   ;-6.00  ;-6.02  ;   0
+ 3 ; 15 ;BB5216     ;000100   ;  3 ;DELTA           ;LCP-2488B4HDRUE  ;A    ;2011060A1001519 ;20200310 ;RDH10247/25 R1A ;1310.00 ;38C   ;22%   ;-5.87  ;-6.44  ;   0
+ 7 ;  7 ;RRUS12B2   ;BXP_10   ;  0 ;SOURCEPHOTONICS ;SPMRIR1IDFBEN2   ;20   ;E6F2006255      ;20140514 ;RDH10247/3 R1A  ;1310.00 ;52C   ;9%    ;-2.37  ;-1.82  ;   0
+ 8 ; 12 ;RRUS32B30  ;BXP_11   ;  0 ;DELTA           ;LCP-2488B4JDRME1 ;A    ;1805061A1201025 ;20180131 ;RDH10247/3 R2A  ;1310.00 ;49C   ;26%   ;-2.23  ;-2.57  ;   0
+ 9 ; 14 ;RRUS32B30  ;BXP_12   ;  0 ;DELTA           ;LCP-2488B4JDRME1 ;A    ;1805061A1201042 ;20180131 ;RDH10247/3 R2A  ;1310.00 ;49C   ;27%   ;-2.30  ;-2.77  ;   0
+10 ;  9 ;RRUS11     ;BXP_13   ;  0 ;DELTA           ;LCP-2488B4JDRT-E ;A    ;111206101044    ;20110322 ;RDH10247/3 R1A  ;1310.00 ;41C   ;23%   ;-2.67  ;-2.29  ;   0
+11 ;  3 ;RRUS12B2   ;BXP_14   ;  0 ;DELTA           ;LCP-2488B4JDRT-E ;A    ;143006113134    ;20140728 ;RDH10247/3 R1A  ;1310.00 ;53C   ;26%   ;-2.56  ;-2.29  ;   0
+ 1 ; 11 ;RRU4478B14 ;BXP_2    ;  0 ;DELTA           ;LCP-2488B4HDRUE  ;A    ;2011060A1001521 ;20200310 ;RDH10247/25 R1A ;1310.00 ;30C   ;25%   ;-5.77  ;-6.00  ;   0
+ 2 ; 13 ;RRU4478B14 ;BXP_3    ;  0 ;DELTA           ;LCP-2488B4HDRUE  ;A    ;2011060A1001523 ;20200310 ;RDH10247/25 R1A ;1310.00 ;33C   ;23%   ;-5.99  ;-6.72  ;   0
+ 3 ; 15 ;RRU4478B14 ;BXP_4    ;  0 ;DELTA           ;LCP-2488B4HDRUE  ;A    ;2011060A1001528 ;20200310 ;RDH10247/25 R1A ;1310.00 ;31C   ;18%   ;-5.83  ;-7.38  ;   0
+ 9 ; 14 ;XMU0301    ;BXP_5    ;  3 ;WTD             ;RTXM192-466-C26  ;3.0  ;EC181500680447  ;20180419 ;RDH10247/3 R2A  ;1310.00 ;26C   ;18%   ;-2.20  ;-2.57  ;   0
+10 ;  9 ;XMU0301    ;BXP_5    ;  4 ;DELTA           ;LCP-2488B4JDRT-E ;A    ;111206101355    ;20110323 ;RDH10247/3 R1A  ;1310.00 ;26C   ;15%   ;-2.29  ;-2.98  ;   0
+11 ;  3 ;XMU0301    ;BXP_5    ;  6 ;WTD             ;RTXM192-466-C25  ;3.0  ;EB142700331434  ;20140709 ;RDH10247/3 R1A  ;1310.00 ;26C   ;20%   ;-1.97  ;-4.61  ;   0
+ 8 ; 12 ;XMU0301    ;BXP_5    ;  8 ;WTD             ;RTXM192-466-C26  ;3.0  ;EC181500680506  ;20180419 ;RDH10247/3 R2A  ;1310.00 ;29C   ;18%   ;-2.11  ;-2.34  ;   0
+12 ;  8 ;XMU0301    ;BXP_5    ;  9 ;OCLAROINC       ;TRF5926AVLB543   ;A1A  ;L14G64725       ;20140729 ;RDH10247/3 R1A  ;1310.00 ;35C   ;20%   ;-2.28  ;-0.95  ;   0
+13 ;  2 ;XMU0301    ;BXP_5    ; 11 ;WTD             ;RTXM192-466-C25  ;3.0  ;EB142900111073  ;20140718 ;RDH10247/3 R1A  ;1310.00 ;27C   ;20%   ;-1.84  ;-3.03  ;   0
+14 ; 10 ;XMU0301    ;BXP_5    ; 12 ;DELTA           ;LCP-2488B4JDRME1 ;A    ;1815061A1202563 ;20180412 ;RDH10247/3 R2A  ;1310.00 ;31C   ;19%   ;-2.18  ;-2.60  ;   0
+15 ;  6 ;XMU0301    ;BXP_5    ; 13 ;OPNEXTINC       ;TRF5926AVLB243   ;B2A  ;C11G51027       ;20110706 ;RDH10247/3 R1A  ;1310.00 ;41C   ;17%   ;-2.18  ;-3.21  ;   0
+ 7 ;  7 ;XMU0301    ;BXP_5    ; 15 ;WTD             ;RTXM192-466-C25  ;3.0  ;EB142700331437  ;20140709 ;RDH10247/3 R1A  ;1310.00 ;25C   ;19%   ;-1.88  ;-2.52  ;   0
+12 ;  8 ;RRUS11B12  ;BXP_6    ;  0 ;OPNEXTINC       ;TRF5926AVLB243   ;B2A  ;C11G51922       ;20110710 ;RDH10247/3 R1A  ;1310.00 ;49C   ;33%   ;0.02   ;-2.71  ;   0
+13 ;  2 ;RRUS12B2   ;BXP_7    ;  0 ;DELTA           ;LCP-2488B4JDRM-E ;A    ;1702061A0201791 ;20170117 ;RDH10247/3 R2A  ;1310.00 ;47C   ;30%   ;-2.44  ;-2.28  ;   0
+14 ; 10 ;RRUS32B30  ;BXP_8    ;  0 ;DELTA           ;LCP-2488B4JDRME1 ;A    ;1805061A1201041 ;20180131 ;RDH10247/3 R2A  ;1310.00 ;48C   ;25%   ;-2.19  ;-2.22  ;   0
+15 ;  6 ;RRUS11B12  ;BXP_9    ;  0 ;DELTA           ;LCP-2488B4JDRM-E ;A    ;1731061A0202314 ;20170802 ;RDH10247/3 R2A  ;1310.00 ;40C   ;28%   ;-2.60  ;-2.31  ;   0
+-------------------------------------------------------------------------------------------------------------------------------------
+TN ;    ;BB5216     ;000100   ;  B ;FINISARCORP.    ;FTLF1318P2BTL-M1 ;A    ;PLP06UL         ;20111203 ;1400422-0019    ;0       ;41C   ;36%   ;-4.78  ;-4.80  ; 0/0
+-------------------------------------------------------------------------------------------------------------------------------------
+
+=====================================================================================================================================
+BOARD  ;LNH    ;PORT ;T ;S ;OpMode  ;AutoNeg ;MacAddress        ;VlanIds     ;LOS ;BER
+=====================================================================================================================================
+BB5216 ;000100 ;TN_B ;O ;1 ;1G_FULL ;true    ;98:A4:04:09:15:E9 ;211,212,213 ;0   ;0/0
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Last MO: 17766. Loaded 17766 MOs. Total: 17767 MOs.
+radioClockState : RNT_TIME_LOCKED
+-------------------------------------------------------------------------------------
+Prio  ;ST  ;syncRefType    ;refStatus  ;opQualLevel  ;SyncReference
+-------------------------------------------------------------------------------------
+  *1  ; 1  ;GNSS_RECEIVER  ;NO_FAULT   ;GNSS         ;Synchronization=1,TimeSyncIO=1 (FieldReplaceableUnit=1,SyncPort=1)
+   2  ; 1  ;PTP_FREQUENCY  ;NO_FAULT   ;PRC          ;Ptp=1,BoundaryOrdinaryClock=1 (G_8265_1 Router=ptp,InterfaceIPv4=1,AddressIPv4=1:SLAVE)
+-------------------------------------------------------------------------------------
+
+=====================================================================================================================================
+FRU     ;LNH     ;BOARD      ;RF  ;BP  ;TX (W/dBm)  ;VSWR (RL)   ;RX (dBm) ;UEs/gUEs  ;Sector/AntennaGroup/Cells (State:CellIds:PCIs)
+=====================================================================================================================================
+RRU-1   ;BXP_9   ;RRUS11B12  ; A  ;11  ;-           ;1.19 (21.4) ;         ;11/-      ;SE=1 AG=1 FDD=MAL03377_7A_1 NIOT=MAL03377_7A_1_I (1:15:151, 1:57:211)
+RRU-1   ;BXP_9   ;RRUS11B12  ; B  ;11  ;-           ;1.15 (23.3) ;         ;11/-      ;SE=1 AG=1 FDD=MAL03377_7A_1 NIOT=MAL03377_7A_1_I (1:15:151, 1:57:211)
+RRU-2   ;BXP_6   ;RRUS11B12  ; A  ;11  ;-           ;1.20 (21.0) ;         ;10/-      ;SE=2 AG=2 FDD=MAL03377_7B_1 NIOT=MAL03377_7B_1_I (1:16:441, 1:58:330)
+RRU-2   ;BXP_6   ;RRUS11B12  ; B  ;11  ;-           ;1.18 (21.6) ;         ;10/-      ;SE=2 AG=2 FDD=MAL03377_7B_1 NIOT=MAL03377_7B_1_I (1:16:441, 1:58:330)
+RRU-3   ;BXP_13  ;RRUS11     ; A  ;11  ;-           ;1.43 (15.0) ;         ;16/-      ;SE=3 AG=3 FDD=MAL03377_7C_1 NIOT=MAL03377_7C_1_I (1:17:53, 1:59:422)
+RRU-3   ;BXP_13  ;RRUS11     ; B  ;11  ;-           ;1.14 (23.8) ;         ;16/-      ;SE=3 AG=3 FDD=MAL03377_7C_1 NIOT=MAL03377_7C_1_I (1:17:53, 1:59:422)
+RRU-4   ;BXP_10  ;RRUS12B2   ; A  ;11  ;-           ;1.24 (19.5) ;         ;68/-      ;SE=4 AG=1 FDD=MAL03377_9A_1 (1:8:240)
+RRU-4   ;BXP_10  ;RRUS12B2   ; B  ;11  ;-           ;1.22 (20.2) ;         ;68/-      ;SE=4 AG=1 FDD=MAL03377_9A_1 (1:8:240)
+RRU-5   ;BXP_7   ;RRUS12B2   ; A  ;11  ;-           ;1.27 (18.5) ;         ;68/-      ;SE=5 AG=2 FDD=MAL03377_9B_1 (1:9:311)
+RRU-5   ;BXP_7   ;RRUS12B2   ; B  ;11  ;-           ;1.38 (16.0) ;         ;68/-      ;SE=5 AG=2 FDD=MAL03377_9B_1 (1:9:311)
+RRU-6   ;BXP_14  ;RRUS12B2   ; A  ;11  ;-           ;1.24 (19.4) ;         ;70/-      ;SE=6 AG=3 FDD=MAL03377_9C_1 (1:10:70)
+RRU-6   ;BXP_14  ;RRUS12B2   ; B  ;11  ;-           ;1.22 (20.2) ;         ;70/-      ;SE=6 AG=3 FDD=MAL03377_9C_1 (1:10:70)
+RRU-7   ;BXP_8   ;RRUS32B30  ; A  ;11  ;-           ;1.09 (27.1) ;         ;52/-      ;SE=7 AG=1 FDD=MAL03377_3A_1 (1:149:360)
+RRU-7   ;BXP_8   ;RRUS32B30  ; B  ;11  ;-           ;1.11 (25.7) ;         ;52/-      ;SE=7 AG=1 FDD=MAL03377_3A_1 (1:149:360)
+RRU-7   ;BXP_8   ;RRUS32B30  ; C  ;11  ;-           ;1.09 (27.5) ;         ;52/-      ;SE=7 AG=1 FDD=MAL03377_3A_1 (1:149:360)
+RRU-7   ;BXP_8   ;RRUS32B30  ; D  ;11  ;-           ;1.24 (19.4) ;         ;52/-      ;SE=7 AG=1 FDD=MAL03377_3A_1 (1:149:360)
+RRU-8   ;BXP_11  ;RRUS32B30  ; A  ;11  ;-           ;1.18 (21.7) ;         ;49/-      ;SE=8 AG=2 FDD=MAL03377_3B_1 (1:150:397)
+RRU-8   ;BXP_11  ;RRUS32B30  ; B  ;11  ;-           ;1.17 (22.0) ;         ;49/-      ;SE=8 AG=2 FDD=MAL03377_3B_1 (1:150:397)
+RRU-8   ;BXP_11  ;RRUS32B30  ; C  ;11  ;-           ;1.09 (27.4) ;         ;49/-      ;SE=8 AG=2 FDD=MAL03377_3B_1 (1:150:397)
+RRU-8   ;BXP_11  ;RRUS32B30  ; D  ;11  ;-           ;1.13 (24.6) ;         ;49/-      ;SE=8 AG=2 FDD=MAL03377_3B_1 (1:150:397)
+RRU-9   ;BXP_12  ;RRUS32B30  ; A  ;11  ;-           ;1.09 (27.0) ;         ;31/-      ;SE=9 AG=3 FDD=MAL03377_3C_1 (1:151:293)
+RRU-9   ;BXP_12  ;RRUS32B30  ; B  ;11  ;-           ;1.10 (26.5) ;         ;31/-      ;SE=9 AG=3 FDD=MAL03377_3C_1 (1:151:293)
+RRU-9   ;BXP_12  ;RRUS32B30  ; C  ;11  ;-           ;1.12 (24.8) ;         ;31/-      ;SE=9 AG=3 FDD=MAL03377_3C_1 (1:151:293)
+RRU-9   ;BXP_12  ;RRUS32B30  ; D  ;11  ;-           ;1.12 (24.7) ;         ;31/-      ;SE=9 AG=3 FDD=MAL03377_3C_1 (1:151:293)
+RRU-10  ;BXP_2   ;RRU4478B14 ; A  ;11  ;-           ;1.16 (22.6) ;         ;1/-       ;SE=10 AG=1 FDD=MAL03377_7A_3_F (1:171:19)
+RRU-10  ;BXP_2   ;RRU4478B14 ; B  ;11  ;-           ;1.08 (27.9) ;         ;1/-       ;SE=10 AG=1 FDD=MAL03377_7A_3_F (1:171:19)
+RRU-10  ;BXP_2   ;RRU4478B14 ; C  ;11  ;-           ;-           ;         ;          ;
+RRU-10  ;BXP_2   ;RRU4478B14 ; D  ;11  ;-           ;-           ;         ;          ;
+RRU-11  ;BXP_3   ;RRU4478B14 ; A  ;11  ;-           ;1.19 (21.3) ;         ;2/-       ;SE=11 AG=2 FDD=MAL03377_7B_3_F (1:172:174)
+RRU-11  ;BXP_3   ;RRU4478B14 ; B  ;11  ;-           ;1.13 (24.4) ;         ;2/-       ;SE=11 AG=2 FDD=MAL03377_7B_3_F (1:172:174)
+RRU-11  ;BXP_3   ;RRU4478B14 ; C  ;11  ;-           ;-           ;         ;          ;
+RRU-11  ;BXP_3   ;RRU4478B14 ; D  ;11  ;-           ;-           ;         ;          ;
+RRU-12  ;BXP_4   ;RRU4478B14 ; A  ;11  ;-           ;1.09 (27.7) ;         ;2/-       ;SE=12 AG=3 FDD=MAL03377_7C_3_F (1:173:404)
+RRU-12  ;BXP_4   ;RRU4478B14 ; B  ;11  ;-           ;1.10 (26.1) ;         ;2/-       ;SE=12 AG=3 FDD=MAL03377_7C_3_F (1:173:404)
+RRU-12  ;BXP_4   ;RRU4478B14 ; C  ;11  ;-           ;-           ;         ;          ;
+RRU-12  ;BXP_4   ;RRU4478B14 ; D  ;11  ;-           ;-           ;         ;          ;
+-------------------------------------------------------------------------------------------------------------------------------------
+
+MAL03377> print $Siteid:HARDWARE INVENTORY END
+
+MAL03377:HARDWARE INVENTORY END
+
+MAL03377> 
+
+MAL03377> print $Siteid:EUTRANCELLFDD STATUS START
+
+MAL03377:EUTRANCELLFDD STATUS START
+
+MAL03377> hgetc ^EUtranCellFDD= ^additionalPlmnReservedList$|^administrativeState$|^cellBarred$|^cellId$|^cellRange$|^dlChannelBandwidth$|^earfcndl$|^earfcnul$|^isDlOnly$|^physicalLayerCellId$|^operationalState$|^primaryPlmnReserved$|^rachRootSequence$|^sectorCarrierRef|^tac$|^ulChannelBandwidth$
+
+250224-10:57:14-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+........................
+MO                           ;additionalPlmnReservedList           ;administrativeState;cellBarred    ;cellId;cellRange;dlChannelBandwidth;earfcndl;earfcnul;isDlOnly;operationalState;physicalLayerCellId;primaryPlmnReserved;rachRootSequence;sectorCarrierRef      ;tac ;ulChannelBandwidth
+EUtranCellFDD=MAL03377_3A_1  ;b[5] = false false false false false ;1 (UNLOCKED)       ;1 (NOT_BARRED);149   ;15       ;10000             ;9820    ;27710   ;false   ;1 (ENABLED)     ;360                ;false              ;50              ;[1] = SectorCarrier=7 ;1029;10000             
+EUtranCellFDD=MAL03377_3B_1  ;b[5] = false false false false false ;1 (UNLOCKED)       ;1 (NOT_BARRED);150   ;15       ;10000             ;9820    ;27710   ;false   ;1 (ENABLED)     ;397                ;false              ;100             ;[1] = SectorCarrier=8 ;1029;10000             
+EUtranCellFDD=MAL03377_3C_1  ;b[5] = false false false false false ;1 (UNLOCKED)       ;1 (NOT_BARRED);151   ;15       ;10000             ;9820    ;27710   ;false   ;1 (ENABLED)     ;293                ;false              ;150             ;[1] = SectorCarrier=9 ;1029;10000             
+EUtranCellFDD=MAL03377_7A_1  ;b[5] = false false false false false ;1 (UNLOCKED)       ;1 (NOT_BARRED);15    ;21       ;10000             ;5780    ;23780   ;false   ;1 (ENABLED)     ;151                ;false              ;286             ;[1] = SectorCarrier=1 ;1029;10000             
+EUtranCellFDD=MAL03377_7A_3_F;b[5] = false false false false false ;1 (UNLOCKED)       ;1 (NOT_BARRED);171   ;37       ;10000             ;5330    ;23330   ;false   ;1 (ENABLED)     ;19                 ;false              ;286             ;[1] = SectorCarrier=10;1029;10000             
+EUtranCellFDD=MAL03377_7B_1  ;b[5] = false false false false false ;1 (UNLOCKED)       ;1 (NOT_BARRED);16    ;21       ;10000             ;5780    ;23780   ;false   ;1 (ENABLED)     ;441                ;false              ;471             ;[1] = SectorCarrier=2 ;1029;10000             
+EUtranCellFDD=MAL03377_7B_3_F;b[5] = false false false false false ;1 (UNLOCKED)       ;1 (NOT_BARRED);172   ;23       ;10000             ;5330    ;23330   ;false   ;1 (ENABLED)     ;174                ;false              ;471             ;[1] = SectorCarrier=11;1029;10000             
+EUtranCellFDD=MAL03377_7C_1  ;b[5] = false false false false false ;1 (UNLOCKED)       ;1 (NOT_BARRED);17    ;15       ;10000             ;5780    ;23780   ;false   ;1 (ENABLED)     ;53                 ;false              ;625             ;[1] = SectorCarrier=3 ;1029;10000             
+EUtranCellFDD=MAL03377_7C_3_F;b[5] = false false false false false ;1 (UNLOCKED)       ;1 (NOT_BARRED);173   ;17       ;10000             ;5330    ;23330   ;false   ;1 (ENABLED)     ;404                ;false              ;172             ;[1] = SectorCarrier=12;1029;10000             
+EUtranCellFDD=MAL03377_9A_1  ;b[5] = false false false false false ;1 (UNLOCKED)       ;1 (NOT_BARRED);8     ;15       ;20000             ;700     ;18700   ;false   ;1 (ENABLED)     ;240                ;false              ;31              ;[1] = SectorCarrier=4 ;1029;20000             
+EUtranCellFDD=MAL03377_9B_1  ;b[5] = false false false false false ;1 (UNLOCKED)       ;1 (NOT_BARRED);9     ;23       ;20000             ;700     ;18700   ;false   ;1 (ENABLED)     ;311                ;false              ;498             ;[1] = SectorCarrier=5 ;1029;20000             
+EUtranCellFDD=MAL03377_9C_1  ;b[5] = false false false false false ;1 (UNLOCKED)       ;1 (NOT_BARRED);10    ;15       ;20000             ;700     ;18700   ;false   ;1 (ENABLED)     ;70                 ;false              ;262             ;[1] = SectorCarrier=6 ;1029;20000             
+
+MAL03377> print $Siteid:EUTRANCELLFDD STATUS END
+
+MAL03377:EUTRANCELLFDD STATUS END
+
+MAL03377> 
+
+MAL03377> print $Siteid:EUTRANCELLFDD CELL SLEEP STATUS START
+
+MAL03377:EUTRANCELLFDD CELL SLEEP STATUS START
+
+MAL03377> hgetc EUtranCellFDD=.*,CellSleepFunction=1 sleepMode|^sleepState$
+
+250224-10:57:15-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+...
+MO                                               ;sleepMode      ;sleepState     
+EUtranCellFDD=MAL03377_3A_1,CellSleepFunction=1  ;0 (DEACTIVATED);0 (DEACTIVATED)
+EUtranCellFDD=MAL03377_3B_1,CellSleepFunction=1  ;0 (DEACTIVATED);0 (DEACTIVATED)
+EUtranCellFDD=MAL03377_3C_1,CellSleepFunction=1  ;0 (DEACTIVATED);0 (DEACTIVATED)
+EUtranCellFDD=MAL03377_7A_1,CellSleepFunction=1  ;0 (DEACTIVATED);0 (DEACTIVATED)
+EUtranCellFDD=MAL03377_7A_3_F,CellSleepFunction=1;0 (DEACTIVATED);0 (DEACTIVATED)
+EUtranCellFDD=MAL03377_7B_1,CellSleepFunction=1  ;0 (DEACTIVATED);0 (DEACTIVATED)
+EUtranCellFDD=MAL03377_7B_3_F,CellSleepFunction=1;0 (DEACTIVATED);0 (DEACTIVATED)
+EUtranCellFDD=MAL03377_7C_1,CellSleepFunction=1  ;0 (DEACTIVATED);0 (DEACTIVATED)
+EUtranCellFDD=MAL03377_7C_3_F,CellSleepFunction=1;0 (DEACTIVATED);0 (DEACTIVATED)
+EUtranCellFDD=MAL03377_9A_1,CellSleepFunction=1  ;0 (DEACTIVATED);0 (DEACTIVATED)
+EUtranCellFDD=MAL03377_9B_1,CellSleepFunction=1  ;0 (DEACTIVATED);0 (DEACTIVATED)
+EUtranCellFDD=MAL03377_9C_1,CellSleepFunction=1  ;0 (DEACTIVATED);0 (DEACTIVATED)
+
+MAL03377> print $Siteid:EUTRANCELLFDD CELL SLEEP STATUS END
+
+MAL03377:EUTRANCELLFDD CELL SLEEP STATUS END
+
+MAL03377> 
+
+MAL03377> print $Siteid:Mixed Mode CELL STATUS START
+
+MAL03377:Mixed Mode CELL STATUS START
+
+MAL03377> hgetc ^NRcellD administrativeState$|cellBarred|reserved|nRPCI|nRTAC$|operationalState$|ssbfrequency$
+
+250224-10:57:16-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+Total: 0 MOs
+
+MAL03377> print $Siteid:Mixed Mode CELL STATUS END
+
+MAL03377:Mixed Mode CELL STATUS END
+
+MAL03377> 
+
+MAL03377> print $Siteid:NBIOTCELL STATUS START
+
+MAL03377:NBIOTCELL STATUS START
+
+MAL03377> hgetc ^NbIotCell= ^administrativeState$|^cellBarred$|^cellId$|^cellRange$|^nbIotCellType$|^earfcndl$|^earfcnul$|^physicalLayerCellId$|^plmnReservedList$|^operationalState$|^eutranCellRef|^tac$|^sectorCarrierRef$
+
+250224-10:57:16-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+.....
+MO                       ;administrativeState;cellBarred    ;cellId;cellRange;earfcndl;earfcnul;eutranCellRef              ;nbIotCellType      ;operationalState;physicalLayerCellId;plmnReservedList;sectorCarrierRef;tac 
+NbIotCell=MAL03377_7A_1_I;1 (UNLOCKED)       ;1 (NOT_BARRED);57    ;15       ;-1      ;-1      ;EUtranCellFDD=MAL03377_7A_1;2 (NBIOT_GUARDBAND);1 (ENABLED)     ;211                ;b[1] = false    ;[0] =           ;1282
+NbIotCell=MAL03377_7B_1_I;1 (UNLOCKED)       ;1 (NOT_BARRED);58    ;15       ;-1      ;-1      ;EUtranCellFDD=MAL03377_7B_1;2 (NBIOT_GUARDBAND);1 (ENABLED)     ;330                ;b[1] = false    ;[0] =           ;1282
+NbIotCell=MAL03377_7C_1_I;1 (UNLOCKED)       ;1 (NOT_BARRED);59    ;15       ;-1      ;-1      ;EUtranCellFDD=MAL03377_7C_1;2 (NBIOT_GUARDBAND);1 (ENABLED)     ;422                ;b[1] = false    ;[0] =           ;1282
+
+MAL03377> print $Siteid:NBIOTCELL STATUS END
+
+MAL03377:NBIOTCELL STATUS END
+
+MAL03377> 
+
+MAL03377> 
+
+MAL03377> 
+
+MAL03377> print $Siteid:CALL TEST INPUT START
+
+MAL03377:CALL TEST INPUT START
+
+MAL03377> hgetc ^EutranCell.DD|^NbIotCell= ^cellid$|^crsGain$|^rachRootSequence$|^tac$|^dlchannelbandwidth$|^freqband$|^isdlonly$|^earfcndl$|^physicallayercellid$|^earfcn$|^channelbandwidth$
+
+250224-10:57:16-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+..............
+MO                           ;cellId;crsGain;dlChannelBandwidth;earfcndl;freqBand;isDlOnly;physicalLayerCellId;rachRootSequence;tac 
+EUtranCellFDD=MAL03377_3A_1  ;149   ;300    ;10000             ;9820    ;30      ;false   ;360                ;50              ;1029
+EUtranCellFDD=MAL03377_3B_1  ;150   ;300    ;10000             ;9820    ;30      ;false   ;397                ;100             ;1029
+EUtranCellFDD=MAL03377_3C_1  ;151   ;300    ;10000             ;9820    ;30      ;false   ;293                ;150             ;1029
+EUtranCellFDD=MAL03377_7A_1  ;15    ;300    ;10000             ;5780    ;17      ;false   ;151                ;286             ;1029
+EUtranCellFDD=MAL03377_7A_3_F;171   ;600    ;10000             ;5330    ;14      ;false   ;19                 ;286             ;1029
+EUtranCellFDD=MAL03377_7B_1  ;16    ;600    ;10000             ;5780    ;17      ;false   ;441                ;471             ;1029
+EUtranCellFDD=MAL03377_7B_3_F;172   ;600    ;10000             ;5330    ;14      ;false   ;174                ;471             ;1029
+EUtranCellFDD=MAL03377_7C_1  ;17    ;600    ;10000             ;5780    ;17      ;false   ;53                 ;625             ;1029
+EUtranCellFDD=MAL03377_7C_3_F;173   ;600    ;10000             ;5330    ;14      ;false   ;404                ;172             ;1029
+EUtranCellFDD=MAL03377_9A_1  ;8     ;300    ;20000             ;700     ;2       ;false   ;240                ;31              ;1029
+EUtranCellFDD=MAL03377_9B_1  ;9     ;300    ;20000             ;700     ;2       ;false   ;311                ;498             ;1029
+EUtranCellFDD=MAL03377_9C_1  ;10    ;300    ;20000             ;700     ;2       ;false   ;70                 ;262             ;1029
+..
+MO                       ;cellId;earfcndl;freqBand;physicalLayerCellId;tac 
+NbIotCell=MAL03377_7A_1_I;57    ;-1      ;17      ;211                ;1282
+NbIotCell=MAL03377_7B_1_I;58    ;-1      ;17      ;330                ;1282
+NbIotCell=MAL03377_7C_1_I;59    ;-1      ;17      ;422                ;1282
+
+MAL03377> hgetc NRCellDU= (ad|op).*State|cell(Barred|LocalId|Range|ReservedForOperator|State)|nRCellDUId|nRPCI|nRTAC$|^bandList$|^rachRootSequence$
+
+250224-10:57:17-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+Total: 0 MOs
+
+MAL03377> print $Siteid:CALL TEST INPUT END
+
+MAL03377:CALL TEST INPUT END
+
+MAL03377> print $Siteid:ANTENNANEARUNIT STATUS START
+
+MAL03377:ANTENNANEARUNIT STATUS START
+
+MAL03377> hgetc ^AntennaNearUnit= administrativeState|iuantDeviceType|onUnitUniqueId|operationalState|productNumber|uniqueId|rfPortRef|serialNumber
+
+250224-10:57:17-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+.....................
+MO                                  ;administrativeState;iuantDeviceType;onUnitUniqueId     ;operationalState;productNumber;rfPortRef                           ;serialNumber     ;uniqueId           
+AntennaUnitGroup=1,AntennaNearUnit=1;1 (UNLOCKED)       ;1 (S-RET)      ;CI62-1020-10-450209;1 (ENABLED)     ;SADC0401E    ;FieldReplaceableUnit=RRU-1,RfPort=R ;62-1020-10-450209;CI62-1020-10-450209
+AntennaUnitGroup=1,AntennaNearUnit=2;1 (UNLOCKED)       ;1 (S-RET)      ;CI62-0620-10-449969;1 (ENABLED)     ;SADC0401E    ;FieldReplaceableUnit=RRU-1,RfPort=R ;62-0620-10-449969;CI62-0620-10-449969
+AntennaUnitGroup=1,AntennaNearUnit=3;1 (UNLOCKED)       ;1 (S-RET)      ;CI62-0620-10-450108;1 (ENABLED)     ;SADC0401E    ;FieldReplaceableUnit=RRU-1,RfPort=R ;62-0620-10-450108;CI62-0620-10-450108
+AntennaUnitGroup=1,AntennaNearUnit=4;1 (UNLOCKED)       ;1 (S-RET)      ;RFA117QU097304     ;1 (ENABLED)     ;ACU-A20-N    ;FieldReplaceableUnit=RRU-10,RfPort=R;A117QU097304     ;RFA117QU097304     
+AntennaUnitGroup=1,AntennaNearUnit=5;1 (UNLOCKED)       ;1 (S-RET)      ;RFA117QU096306     ;1 (ENABLED)     ;ACU-A20-N    ;FieldReplaceableUnit=RRU-10,RfPort=R;A117QU096306     ;RFA117QU096306     
+AntennaUnitGroup=1,AntennaNearUnit=6;1 (UNLOCKED)       ;1 (S-RET)      ;RFA117QU096305     ;1 (ENABLED)     ;ACU-A20-N    ;FieldReplaceableUnit=RRU-10,RfPort=R;A117QU096305     ;RFA117QU096305     
+AntennaUnitGroup=1,AntennaNearUnit=7;1 (UNLOCKED)       ;1 (S-RET)      ;RFA117QU097303     ;1 (ENABLED)     ;ACU-A20-N    ;FieldReplaceableUnit=RRU-10,RfPort=R;A117QU097303     ;RFA117QU097303     
+AntennaUnitGroup=2,AntennaNearUnit=1;1 (UNLOCKED)       ;1 (S-RET)      ;CI62-1020-10-450264;1 (ENABLED)     ;SADC0401E    ;FieldReplaceableUnit=RRU-2,RfPort=R ;62-1020-10-450264;CI62-1020-10-450264
+AntennaUnitGroup=2,AntennaNearUnit=2;1 (UNLOCKED)       ;1 (S-RET)      ;CI62-1020-10-450245;1 (ENABLED)     ;SADC0401E    ;FieldReplaceableUnit=RRU-2,RfPort=R ;62-1020-10-450245;CI62-1020-10-450245
+AntennaUnitGroup=2,AntennaNearUnit=3;1 (UNLOCKED)       ;1 (S-RET)      ;CI62-0620-10-449884;1 (ENABLED)     ;SADC0401E    ;FieldReplaceableUnit=RRU-2,RfPort=R ;62-0620-10-449884;CI62-0620-10-449884
+AntennaUnitGroup=2,AntennaNearUnit=4;1 (UNLOCKED)       ;1 (S-RET)      ;RFA117QU076767     ;1 (ENABLED)     ;ACU-A20-N    ;FieldReplaceableUnit=RRU-11,RfPort=R;A117QU076767     ;RFA117QU076767     
+AntennaUnitGroup=2,AntennaNearUnit=5;1 (UNLOCKED)       ;1 (S-RET)      ;RFA117QU076768     ;1 (ENABLED)     ;ACU-A20-N    ;FieldReplaceableUnit=RRU-11,RfPort=R;A117QU076768     ;RFA117QU076768     
+AntennaUnitGroup=2,AntennaNearUnit=6;1 (UNLOCKED)       ;1 (S-RET)      ;RFA117QU060806     ;1 (ENABLED)     ;ACU-A20-N    ;FieldReplaceableUnit=RRU-11,RfPort=R;A117QU060806     ;RFA117QU060806     
+AntennaUnitGroup=2,AntennaNearUnit=7;1 (UNLOCKED)       ;1 (S-RET)      ;RFA117QU060805     ;1 (ENABLED)     ;ACU-A20-N    ;FieldReplaceableUnit=RRU-11,RfPort=R;A117QU060805     ;RFA117QU060805     
+AntennaUnitGroup=3,AntennaNearUnit=1;1 (UNLOCKED)       ;1 (S-RET)      ;CI61-1818-10-312312;1 (ENABLED)     ;SADC0401E    ;FieldReplaceableUnit=RRU-3,RfPort=R ;61-1818-10-312312;CI61-1818-10-312312
+AntennaUnitGroup=3,AntennaNearUnit=2;1 (UNLOCKED)       ;1 (S-RET)      ;CI61-1818-10-313006;1 (ENABLED)     ;SADC0401E    ;FieldReplaceableUnit=RRU-3,RfPort=R ;61-1818-10-313006;CI61-1818-10-313006
+AntennaUnitGroup=3,AntennaNearUnit=3;1 (UNLOCKED)       ;1 (S-RET)      ;CI61-1718-10-311429;1 (ENABLED)     ;SADC0401E    ;FieldReplaceableUnit=RRU-3,RfPort=R ;61-1718-10-311429;CI61-1718-10-311429
+AntennaUnitGroup=3,AntennaNearUnit=4;1 (UNLOCKED)       ;1 (S-RET)      ;RFA117QU109396     ;1 (ENABLED)     ;ACU-A20-N    ;FieldReplaceableUnit=RRU-12,RfPort=R;A117QU109396     ;RFA117QU109396     
+AntennaUnitGroup=3,AntennaNearUnit=5;1 (UNLOCKED)       ;1 (S-RET)      ;RFA117QU108924     ;1 (ENABLED)     ;ACU-A20-N    ;FieldReplaceableUnit=RRU-12,RfPort=R;A117QU108924     ;RFA117QU108924     
+AntennaUnitGroup=3,AntennaNearUnit=6;1 (UNLOCKED)       ;1 (S-RET)      ;RFA117QU109395     ;1 (ENABLED)     ;ACU-A20-N    ;FieldReplaceableUnit=RRU-12,RfPort=R;A117QU109395     ;RFA117QU109395     
+AntennaUnitGroup=3,AntennaNearUnit=7;1 (UNLOCKED)       ;1 (S-RET)      ;RFA117QU108923     ;1 (ENABLED)     ;ACU-A20-N    ;FieldReplaceableUnit=RRU-12,RfPort=R;A117QU108923     ;RFA117QU108923     
+
+MAL03377> print $Siteid:ANTENNANEARUNIT STATUS END
+
+MAL03377:ANTENNANEARUNIT STATUS END
+
+MAL03377> print $Siteid:RILINK STATUS START
+
+MAL03377:RILINK STATUS START
+
+MAL03377> hgetc ^RiLink= linkRate|linkTag|linkType|operationalState|riPortRef1|riPortRef2|transportType
+
+250224-10:57:18-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+............
+MO       ;linkRate;linkTag;operationalState;riPortRef1                            ;riPortRef2                               ;transportType
+RiLink=1 ;9800    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=1,RiPort=F       ;FieldReplaceableUnit=XMU03-1,RiPort=3    ;0 (NOT_SET)  
+RiLink=10;2500    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=XMU03-1,RiPort=13;FieldReplaceableUnit=RRU-7,RiPort=DATA_1 ;0 (NOT_SET)  
+RiLink=11;2500    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=1,RiPort=A       ;FieldReplaceableUnit=RRU-10,RiPort=DATA_1;0 (NOT_SET)  
+RiLink=12;2500    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=XMU03-1,RiPort=9 ;FieldReplaceableUnit=RRU-8,RiPort=DATA_1 ;0 (NOT_SET)  
+RiLink=13;2500    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=1,RiPort=B       ;FieldReplaceableUnit=RRU-11,RiPort=DATA_1;0 (NOT_SET)  
+RiLink=14;2500    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=XMU03-1,RiPort=4 ;FieldReplaceableUnit=RRU-9,RiPort=DATA_1 ;0 (NOT_SET)  
+RiLink=15;2500    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=1,RiPort=C       ;FieldReplaceableUnit=RRU-12,RiPort=DATA_1;0 (NOT_SET)  
+RiLink=2 ;2500    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=XMU03-1,RiPort=12;FieldReplaceableUnit=RRU-5,RiPort=DATA_1 ;0 (NOT_SET)  
+RiLink=3 ;2500    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=XMU03-1,RiPort=7 ;FieldReplaceableUnit=RRU-6,RiPort=DATA_1 ;0 (NOT_SET)  
+RiLink=4 ;9800    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=1,RiPort=D       ;FieldReplaceableUnit=XMU03-1,RiPort=1    ;0 (NOT_SET)  
+RiLink=5 ;9800    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=1,RiPort=E       ;FieldReplaceableUnit=XMU03-1,RiPort=2    ;0 (NOT_SET)  
+RiLink=6 ;2500    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=XMU03-1,RiPort=14;FieldReplaceableUnit=RRU-1,RiPort=DATA_1 ;0 (NOT_SET)  
+RiLink=7 ;2500    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=XMU03-1,RiPort=16;FieldReplaceableUnit=RRU-4,RiPort=DATA_1 ;0 (NOT_SET)  
+RiLink=8 ;2500    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=XMU03-1,RiPort=10;FieldReplaceableUnit=RRU-2,RiPort=DATA_1 ;0 (NOT_SET)  
+RiLink=9 ;2500    ;0      ;1 (ENABLED)     ;FieldReplaceableUnit=XMU03-1,RiPort=5 ;FieldReplaceableUnit=RRU-3,RiPort=DATA_1 ;0 (NOT_SET)  
+
+MAL03377> print $Siteid:RILINK STATUS END
+
+MAL03377:RILINK STATUS END
+
+MAL03377> 
+
+MAL03377> print $Siteid:RRU STATUS START
+
+MAL03377:RRU STATUS START
+
+MAL03377> hgetc AuxPlugInUnit|FieldReplaceableUnit administrativeState|operationalState|prod
+
+250224-10:57:18-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+......
+MO                          ;administrativeState;operationalState;productName   ;productNumber  ;productRevision;productionDate;serialNumber
+FieldReplaceableUnit=1      ;1 (UNLOCKED)       ;1 (ENABLED)     ;Baseband 5216 ;KDU137925/31   ;R5A            ;20180620      ;CD3X633251  
+FieldReplaceableUnit=RRU-1  ;1 (UNLOCKED)       ;1 (ENABLED)     ;RRUS 11 B12   ;KRC 161 241/1  ;R3B            ;20140606      ;CF81921906  
+FieldReplaceableUnit=RRU-10 ;1 (UNLOCKED)       ;1 (ENABLED)     ;Radio 4478 B14;KRC 161 669/3  ;R1E            ;20200221      ;CF87325639  
+FieldReplaceableUnit=RRU-11 ;1 (UNLOCKED)       ;1 (ENABLED)     ;Radio 4478 B14;KRC 161 669/3  ;R1B            ;20171220      ;CF84589841  
+FieldReplaceableUnit=RRU-12 ;1 (UNLOCKED)       ;1 (ENABLED)     ;Radio 4478 B14;KRC 161 669/3  ;R1B            ;20171213      ;CF84575677  
+FieldReplaceableUnit=RRU-2  ;1 (UNLOCKED)       ;1 (ENABLED)     ;RRUS 11 B12   ;KRC 161 241/1  ;R2G            ;20111206      ;CF80027187  
+FieldReplaceableUnit=RRU-3  ;1 (UNLOCKED)       ;1 (ENABLED)     ;RRUS11        ;KRC 161 241/1  ;R2G            ;20110418      ;CB4H411016  
+FieldReplaceableUnit=RRU-4  ;1 (UNLOCKED)       ;1 (ENABLED)     ;RRUS 12 B2    ;KRC 161 299/2  ;R1M            ;20170809      ;CF84324406  
+FieldReplaceableUnit=RRU-5  ;1 (UNLOCKED)       ;1 (ENABLED)     ;RRUS 12 B2    ;KRC 161 299/2  ;R1M            ;20160926      ;CF83547260  
+FieldReplaceableUnit=RRU-6  ;1 (UNLOCKED)       ;1 (ENABLED)     ;RRUS 12 B2    ;KRC 161 299/2  ;R1C            ;20140708      ;CF81980913  
+FieldReplaceableUnit=RRU-7  ;1 (UNLOCKED)       ;1 (ENABLED)     ;RRUS 32 B30   ;KRC 161 423/1  ;R1F            ;20190516      ;E553248796  
+FieldReplaceableUnit=RRU-8  ;1 (UNLOCKED)       ;1 (ENABLED)     ;RRUS 32 B30   ;KRC 161 423/1  ;R1F            ;20190516      ;E553248832  
+FieldReplaceableUnit=RRU-9  ;1 (UNLOCKED)       ;1 (ENABLED)     ;RRUS 32 B30   ;KRC 161 423/1  ;R1F            ;20190516      ;E553262491  
+FieldReplaceableUnit=SAU    ;1 (UNLOCKED)       ;1 (ENABLED)     ;SAU           ;ZHY 601 17/1   ;R1D            ;20110718      ;CD34138530  
+FieldReplaceableUnit=SUP-1  ;1 (UNLOCKED)       ;1 (ENABLED)     ;SUP 6601      ;1/BFL 901 009/4;R1E            ;20130225      ;BR82605561  
+FieldReplaceableUnit=XMU03-1;1 (UNLOCKED)       ;1 (ENABLED)     ;Baseband R503 ;KDU 137 949/1  ;R2A            ;20170405      ;CD3Q889710  
+
+MAL03377> print $Siteid:RRU STATUS END
+
+MAL03377:RRU STATUS END
+
+MAL03377> print $Siteid:VSWR SUPERVISION START
+
+MAL03377:VSWR SUPERVISION START
+
+MAL03377> hgetc RfPort=[^R] vswrSupervisionActive|vswrSupervisionSensitivity
+
+250224-10:57:18-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+.........
+MO                                  ;vswrSupervisionActive;vswrSupervisionSensitivity
+FieldReplaceableUnit=RRU-1,RfPort=A ;true                 ;70                        
+FieldReplaceableUnit=RRU-1,RfPort=B ;true                 ;70                        
+FieldReplaceableUnit=RRU-10,RfPort=A;true                 ;70                        
+FieldReplaceableUnit=RRU-10,RfPort=B;true                 ;70                        
+FieldReplaceableUnit=RRU-10,RfPort=C;true                 ;70                        
+FieldReplaceableUnit=RRU-10,RfPort=D;true                 ;70                        
+FieldReplaceableUnit=RRU-11,RfPort=A;true                 ;70                        
+FieldReplaceableUnit=RRU-11,RfPort=B;true                 ;70                        
+FieldReplaceableUnit=RRU-11,RfPort=C;true                 ;70                        
+FieldReplaceableUnit=RRU-11,RfPort=D;true                 ;70                        
+FieldReplaceableUnit=RRU-12,RfPort=A;true                 ;70                        
+FieldReplaceableUnit=RRU-12,RfPort=B;true                 ;70                        
+FieldReplaceableUnit=RRU-12,RfPort=C;true                 ;70                        
+FieldReplaceableUnit=RRU-12,RfPort=D;true                 ;70                        
+FieldReplaceableUnit=RRU-2,RfPort=A ;true                 ;70                        
+FieldReplaceableUnit=RRU-2,RfPort=B ;true                 ;70                        
+FieldReplaceableUnit=RRU-3,RfPort=A ;true                 ;70                        
+FieldReplaceableUnit=RRU-3,RfPort=B ;true                 ;70                        
+FieldReplaceableUnit=RRU-4,RfPort=A ;true                 ;70                        
+FieldReplaceableUnit=RRU-4,RfPort=B ;true                 ;70                        
+FieldReplaceableUnit=RRU-5,RfPort=A ;true                 ;70                        
+FieldReplaceableUnit=RRU-5,RfPort=B ;true                 ;70                        
+FieldReplaceableUnit=RRU-6,RfPort=A ;true                 ;70                        
+FieldReplaceableUnit=RRU-6,RfPort=B ;true                 ;70                        
+FieldReplaceableUnit=RRU-7,RfPort=A ;true                 ;70                        
+FieldReplaceableUnit=RRU-7,RfPort=B ;true                 ;70                        
+FieldReplaceableUnit=RRU-7,RfPort=C ;true                 ;70                        
+FieldReplaceableUnit=RRU-7,RfPort=D ;true                 ;70                        
+FieldReplaceableUnit=RRU-8,RfPort=A ;true                 ;70                        
+FieldReplaceableUnit=RRU-8,RfPort=B ;true                 ;70                        
+FieldReplaceableUnit=RRU-8,RfPort=C ;true                 ;70                        
+FieldReplaceableUnit=RRU-8,RfPort=D ;true                 ;70                        
+FieldReplaceableUnit=RRU-9,RfPort=A ;true                 ;70                        
+FieldReplaceableUnit=RRU-9,RfPort=B ;true                 ;70                        
+FieldReplaceableUnit=RRU-9,RfPort=C ;true                 ;70                        
+FieldReplaceableUnit=RRU-9,RfPort=D ;true                 ;70                        
+
+MAL03377> print $Siteid:VSWR SUPERVISION END
+
+MAL03377:VSWR SUPERVISION END
+
+MAL03377> print $Siteid:TRAFFIC DETAILS START
+
+MAL03377:TRAFFIC DETAILS START
+
+MAL03377> lh mp ue print -admitted
+
+250224-10:57:19-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+
+=============================================================================================
+coli>/fruacc/lhsh 000100 /lrat/ue print -admitted
+0001: CellId  #UE:s  #Bearers  
+0001:    8      69      150
+0001:    9      73      148
+0001:   10      64      123
+0001:   15      14       27
+0001:   16       9       17
+0001:   17      11       20
+0001:   57       0        0
+0001:   58       0        0
+0001:   59       0        0
+0001:  149      41       90
+0001:  150      41       87
+0001:  151      37       83
+0001:  171       1        1
+0001:  172       3        5
+0001:  173       2        3
+=============================================================================================
+coli>/fruacc/lhsh 000100 /rc/nrat/ue print -admitted
+Service not found
+=============================================================================================
+coli>/fruacc/lhsh 000100 /rpc/nrat/ue print -admitted
+0001: NRAT is dormant.
+coli>
+
+MAL03377> pmxh . pmErabEstabAttInit$|pmErabEstabSuccInit$|pmRrcConnEstabAtt$|pmRrcConnEstabSucc$
+
+250224-10:57:22-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+
+............
+
+gzip -dc /ericsson/log/amos/moshell_logfiles/pp5998/logs_moshell/pmfiles/2001.506.4450.41e8.0.0.3173.2/rop/A20250224.1530-1545_MAL03377.xml.gz | LANG=C LC_ALL=C /opt/ericsson/amos/moshell/gawk -vusergawk="LANG=C LC_ALL=C /opt/ericsson/amos/moshell/gawk" -f /opt/ericsson/amos/moshell/commonjars/pmExtract.awk -u "." "pmErabEstabAttInit$|pmErabEstabSuccInit$|pmRrcConnEstabAtt$|pmRrcConnEstabSucc$"   | sort | uniq | /usr/bin/perl /opt/ericsson/amos/moshell/pmXtab -q -pval 0 -mom /ericsson/log/amos/moshell_logfiles/pp5998/logs_moshell/tempfiles/scp-3-scripting_20250224-104931_4567/pmxmomLog4618  -cols ctr -fmt txt -m "[M]anagedElement=[^,]+,(?:\w+=1,){0,1}((\w+=[^,]+,*)+$)"  
+
+Report from 2025-02-24 15:30 UTC to 2025-02-24 15:44 UTC (1 ropfiles)
+Node SW: CXP9024418/16_R3D40 ()
+
+Date: 2025-02-24
+Time  Object                        pmErabEstabAttInit pmErabEstabSuccInit pmRrcConnEstabAtt pmRrcConnEstabSucc
+15:30 EUtranCellFDD=MAL03377_3A_1                 3892                3892              1987               1987
+15:30 EUtranCellFDD=MAL03377_3B_1                 3643                3643              1915               1915
+15:30 EUtranCellFDD=MAL03377_3C_1                 2679                2671              1361               1361
+15:30 EUtranCellFDD=MAL03377_7A_1                 1052                1037               706                703
+15:30 EUtranCellFDD=MAL03377_7A_3_F                 61                  61                38                 38
+15:30 EUtranCellFDD=MAL03377_7B_1                  529                 528               403                403
+15:30 EUtranCellFDD=MAL03377_7B_3_F                119                 119               103                103
+15:30 EUtranCellFDD=MAL03377_7C_1                 1584                1567               987                975
+15:30 EUtranCellFDD=MAL03377_7C_3_F                 91                  91                58                 58
+15:30 EUtranCellFDD=MAL03377_9A_1                 7222                7220              3992               3991
+15:30 EUtranCellFDD=MAL03377_9B_1                 6950                6948              3972               3966
+15:30 EUtranCellFDD=MAL03377_9C_1                 6972                6972              4021               4018
+15:30 NbIotCell=MAL03377_7A_1_I                      0                   0                 1                  1
+15:30 NbIotCell=MAL03377_7B_1_I                      0                   0                 0                  0
+15:30 NbIotCell=MAL03377_7C_1_I                      0                   0                 0                  0
+
+
+MAL03377> print $Siteid:TRAFFIC DETAILS END
+
+MAL03377:TRAFFIC DETAILS END
+
+MAL03377> 
+
+MAL03377> print $Siteid:LTE CELL CONFIG START
+
+MAL03377:LTE CELL CONFIG START
+
+MAL03377> hgetc ^EutranCell.DD|^NbIotCell= ^cellid$|^crsGain$|^rachRootSequence$|^tac$|^dlchannelbandwidth$|^freqband$|^isdlonly$|^earfcndl$|^physicallayercellid$
+
+250224-10:57:25-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+..............
+MO                           ;cellId;crsGain;dlChannelBandwidth;earfcndl;freqBand;isDlOnly;physicalLayerCellId;rachRootSequence;tac 
+EUtranCellFDD=MAL03377_3A_1  ;149   ;300    ;10000             ;9820    ;30      ;false   ;360                ;50              ;1029
+EUtranCellFDD=MAL03377_3B_1  ;150   ;300    ;10000             ;9820    ;30      ;false   ;397                ;100             ;1029
+EUtranCellFDD=MAL03377_3C_1  ;151   ;300    ;10000             ;9820    ;30      ;false   ;293                ;150             ;1029
+EUtranCellFDD=MAL03377_7A_1  ;15    ;300    ;10000             ;5780    ;17      ;false   ;151                ;286             ;1029
+EUtranCellFDD=MAL03377_7A_3_F;171   ;600    ;10000             ;5330    ;14      ;false   ;19                 ;286             ;1029
+EUtranCellFDD=MAL03377_7B_1  ;16    ;600    ;10000             ;5780    ;17      ;false   ;441                ;471             ;1029
+EUtranCellFDD=MAL03377_7B_3_F;172   ;600    ;10000             ;5330    ;14      ;false   ;174                ;471             ;1029
+EUtranCellFDD=MAL03377_7C_1  ;17    ;600    ;10000             ;5780    ;17      ;false   ;53                 ;625             ;1029
+EUtranCellFDD=MAL03377_7C_3_F;173   ;600    ;10000             ;5330    ;14      ;false   ;404                ;172             ;1029
+EUtranCellFDD=MAL03377_9A_1  ;8     ;300    ;20000             ;700     ;2       ;false   ;240                ;31              ;1029
+EUtranCellFDD=MAL03377_9B_1  ;9     ;300    ;20000             ;700     ;2       ;false   ;311                ;498             ;1029
+EUtranCellFDD=MAL03377_9C_1  ;10    ;300    ;20000             ;700     ;2       ;false   ;70                 ;262             ;1029
+..
+MO                       ;cellId;earfcndl;freqBand;physicalLayerCellId;tac 
+NbIotCell=MAL03377_7A_1_I;57    ;-1      ;17      ;211                ;1282
+NbIotCell=MAL03377_7B_1_I;58    ;-1      ;17      ;330                ;1282
+NbIotCell=MAL03377_7C_1_I;59    ;-1      ;17      ;422                ;1282
+
+MAL03377> hgetc ru-|Sector.*[^,]= (ad|op).*State|isSharedWithExternalMe|prod|(main|oper).*indicator|con.*power|noOf.xAntennas|sectorFunctionRef|availableHwOutputPower|reservedBy
+
+250224-10:57:26-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+.........
+MO              ;configuredMaxTxPower;noOfRxAntennas;noOfTxAntennas;operationalState;reservedBy                                       ;sectorFunctionRef         
+SectorCarrier=1 ;60000               ;2             ;2             ;1 (ENABLED)     ;[2] = EUtranCellFDD=MAL03377_7A_1 UlCompGroup=1  ;SectorEquipmentFunction=1 
+SectorCarrier=10;5000                ;2             ;2             ;1 (ENABLED)     ;[2] = EUtranCellFDD=MAL03377_7A_3_F UlCompGroup=3;SectorEquipmentFunction=10
+SectorCarrier=11;5000                ;2             ;2             ;1 (ENABLED)     ;[1] = EUtranCellFDD=MAL03377_7B_3_F              ;SectorEquipmentFunction=11
+SectorCarrier=12;5000                ;2             ;2             ;1 (ENABLED)     ;[1] = EUtranCellFDD=MAL03377_7C_3_F              ;SectorEquipmentFunction=12
+SectorCarrier=2 ;60000               ;2             ;2             ;1 (ENABLED)     ;[2] = EUtranCellFDD=MAL03377_7B_1 UlCompGroup=1  ;SectorEquipmentFunction=2 
+SectorCarrier=3 ;60000               ;2             ;2             ;1 (ENABLED)     ;[2] = UlCompGroup=1 EUtranCellFDD=MAL03377_7C_1  ;SectorEquipmentFunction=3 
+SectorCarrier=4 ;120000              ;2             ;2             ;1 (ENABLED)     ;[2] = UlCompGroup=2 EUtranCellFDD=MAL03377_9A_1  ;SectorEquipmentFunction=4 
+SectorCarrier=5 ;120000              ;2             ;2             ;1 (ENABLED)     ;[2] = UlCompGroup=2 EUtranCellFDD=MAL03377_9B_1  ;SectorEquipmentFunction=5 
+SectorCarrier=6 ;120000              ;2             ;2             ;1 (ENABLED)     ;[2] = UlCompGroup=2 EUtranCellFDD=MAL03377_9C_1  ;SectorEquipmentFunction=6 
+SectorCarrier=7 ;79433               ;4             ;4             ;1 (ENABLED)     ;[2] = UlCompGroup=4 EUtranCellFDD=MAL03377_3A_1  ;SectorEquipmentFunction=7 
+SectorCarrier=8 ;80000               ;4             ;4             ;1 (ENABLED)     ;[2] = EUtranCellFDD=MAL03377_3B_1 UlCompGroup=4  ;SectorEquipmentFunction=8 
+SectorCarrier=9 ;80000               ;4             ;4             ;1 (ENABLED)     ;[2] = UlCompGroup=4 EUtranCellFDD=MAL03377_3C_1  ;SectorEquipmentFunction=9 
+...........
+MO                         ;administrativeState;isSharedWithExternalMe;maintenanceIndicator;operationalIndicator;operationalState;productName   ;productNumber;productRevision;productionDate;reservedBy;serialNumber
+FieldReplaceableUnit=RRU-1 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 11 B12   ;KRC 161 241/1;R3B            ;20140606      ;[0] =     ;CF81921906  
+FieldReplaceableUnit=RRU-10;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;Radio 4478 B14;KRC 161 669/3;R1E            ;20200221      ;[0] =     ;CF87325639  
+FieldReplaceableUnit=RRU-11;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;Radio 4478 B14;KRC 161 669/3;R1B            ;20171220      ;[0] =     ;CF84589841  
+FieldReplaceableUnit=RRU-12;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;Radio 4478 B14;KRC 161 669/3;R1B            ;20171213      ;[0] =     ;CF84575677  
+FieldReplaceableUnit=RRU-2 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 11 B12   ;KRC 161 241/1;R2G            ;20111206      ;[0] =     ;CF80027187  
+FieldReplaceableUnit=RRU-3 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS11        ;KRC 161 241/1;R2G            ;20110418      ;[0] =     ;CB4H411016  
+FieldReplaceableUnit=RRU-4 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 12 B2    ;KRC 161 299/2;R1M            ;20170809      ;[0] =     ;CF84324406  
+FieldReplaceableUnit=RRU-5 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 12 B2    ;KRC 161 299/2;R1M            ;20160926      ;[0] =     ;CF83547260  
+FieldReplaceableUnit=RRU-6 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 12 B2    ;KRC 161 299/2;R1C            ;20140708      ;[0] =     ;CF81980913  
+FieldReplaceableUnit=RRU-7 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 32 B30   ;KRC 161 423/1;R1F            ;20190516      ;[0] =     ;E553248796  
+FieldReplaceableUnit=RRU-8 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 32 B30   ;KRC 161 423/1;R1F            ;20190516      ;[0] =     ;E553248832  
+FieldReplaceableUnit=RRU-9 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 32 B30   ;KRC 161 423/1;R1F            ;20190516      ;[0] =     ;E553262491  
+......
+MO                        ;administrativeState;availableHwOutputPower;operationalState;reservedBy            
+SectorEquipmentFunction=1 ;1 (UNLOCKED)       ;60000                 ;1 (ENABLED)     ;[1] = SectorCarrier=1 
+SectorEquipmentFunction=10;1 (UNLOCKED)       ;80000                 ;1 (ENABLED)     ;[1] = SectorCarrier=10
+SectorEquipmentFunction=11;1 (UNLOCKED)       ;80000                 ;1 (ENABLED)     ;[1] = SectorCarrier=11
+SectorEquipmentFunction=12;1 (UNLOCKED)       ;80000                 ;1 (ENABLED)     ;[1] = SectorCarrier=12
+SectorEquipmentFunction=2 ;1 (UNLOCKED)       ;60000                 ;1 (ENABLED)     ;[1] = SectorCarrier=2 
+SectorEquipmentFunction=3 ;1 (UNLOCKED)       ;60000                 ;1 (ENABLED)     ;[1] = SectorCarrier=3 
+SectorEquipmentFunction=4 ;1 (UNLOCKED)       ;120000                ;1 (ENABLED)     ;[1] = SectorCarrier=4 
+SectorEquipmentFunction=5 ;1 (UNLOCKED)       ;120000                ;1 (ENABLED)     ;[1] = SectorCarrier=5 
+SectorEquipmentFunction=6 ;1 (UNLOCKED)       ;120000                ;1 (ENABLED)     ;[1] = SectorCarrier=6 
+SectorEquipmentFunction=7 ;1 (UNLOCKED)       ;100476                ;1 (ENABLED)     ;[1] = SectorCarrier=7 
+SectorEquipmentFunction=8 ;1 (UNLOCKED)       ;100476                ;1 (ENABLED)     ;[1] = SectorCarrier=8 
+SectorEquipmentFunction=9 ;1 (UNLOCKED)       ;100476                ;1 (ENABLED)     ;[1] = SectorCarrier=9 
+
+MAL03377> hgetc ^EutranCell.DD= ^cellid$|^tac$|^earfcn.l$|lchannelbandwidth|rachRootSequence|isdlonly|crsgain|sectorcarrierref
+
+250224-10:57:49-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+..................
+MO                           ;cellId;crsGain;dlChannelBandwidth;dlInternalChannelBandwidth;earfcndl;earfcnul;isDlOnly;rachRootSequence;sectorCarrierRef      ;tac ;ulChannelBandwidth;ulInternalChannelBandwidth
+EUtranCellFDD=MAL03377_3A_1  ;149   ;300    ;10000             ;0                         ;9820    ;27710   ;false   ;50              ;[1] = SectorCarrier=7 ;1029;10000             ;0                         
+EUtranCellFDD=MAL03377_3B_1  ;150   ;300    ;10000             ;0                         ;9820    ;27710   ;false   ;100             ;[1] = SectorCarrier=8 ;1029;10000             ;0                         
+EUtranCellFDD=MAL03377_3C_1  ;151   ;300    ;10000             ;0                         ;9820    ;27710   ;false   ;150             ;[1] = SectorCarrier=9 ;1029;10000             ;0                         
+EUtranCellFDD=MAL03377_7A_1  ;15    ;300    ;10000             ;0                         ;5780    ;23780   ;false   ;286             ;[1] = SectorCarrier=1 ;1029;10000             ;0                         
+EUtranCellFDD=MAL03377_7A_3_F;171   ;600    ;10000             ;0                         ;5330    ;23330   ;false   ;286             ;[1] = SectorCarrier=10;1029;10000             ;0                         
+EUtranCellFDD=MAL03377_7B_1  ;16    ;600    ;10000             ;0                         ;5780    ;23780   ;false   ;471             ;[1] = SectorCarrier=2 ;1029;10000             ;0                         
+EUtranCellFDD=MAL03377_7B_3_F;172   ;600    ;10000             ;0                         ;5330    ;23330   ;false   ;471             ;[1] = SectorCarrier=11;1029;10000             ;0                         
+EUtranCellFDD=MAL03377_7C_1  ;17    ;600    ;10000             ;0                         ;5780    ;23780   ;false   ;625             ;[1] = SectorCarrier=3 ;1029;10000             ;0                         
+EUtranCellFDD=MAL03377_7C_3_F;173   ;600    ;10000             ;0                         ;5330    ;23330   ;false   ;172             ;[1] = SectorCarrier=12;1029;10000             ;0                         
+EUtranCellFDD=MAL03377_9A_1  ;8     ;300    ;20000             ;0                         ;700     ;18700   ;false   ;31              ;[1] = SectorCarrier=4 ;1029;20000             ;0                         
+EUtranCellFDD=MAL03377_9B_1  ;9     ;300    ;20000             ;0                         ;700     ;18700   ;false   ;498             ;[1] = SectorCarrier=5 ;1029;20000             ;0                         
+EUtranCellFDD=MAL03377_9C_1  ;10    ;300    ;20000             ;0                         ;700     ;18700   ;false   ;262             ;[1] = SectorCarrier=6 ;1029;20000             ;0                         
+
+MAL03377> hgetc ulcompgroup= (ad|op|av).*stat|sectorCarrierRef
+
+250224-10:57:49-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+..
+MO           ;administrativeState;availabilityStatus ;operationalState;sectorCarrierRef                                     
+UlCompGroup=1;0 (LOCKED)         ;i[1] = 3 (OFF_LINE);0 (DISABLED)    ;[3] = SectorCarrier=3 SectorCarrier=1 SectorCarrier=2
+UlCompGroup=2;0 (LOCKED)         ;i[1] = 3 (OFF_LINE);0 (DISABLED)    ;[3] = SectorCarrier=5 SectorCarrier=6 SectorCarrier=4
+UlCompGroup=3;0 (LOCKED)         ;i[1] = 3 (OFF_LINE);0 (DISABLED)    ;[1] = SectorCarrier=10                               
+UlCompGroup=4;1 (UNLOCKED)       ;i[0] =             ;1 (ENABLED)     ;[3] = SectorCarrier=7 SectorCarrier=8 SectorCarrier=9
+
+MAL03377> print $Siteid:LTE CELL CONFIG END
+
+MAL03377:LTE CELL CONFIG END
+
+MAL03377> 
+
+MAL03377> print $Siteid:NR CELL CONFIG START
+
+MAL03377:NR CELL CONFIG START
+
+MAL03377> hgetc NRCellDU= (ad|op).*State|cell(Barred|LocalId|Range|ReservedForOperator|State)|nRCellDUId|nRPCI$|nRTAC$|^bandList$|^rachRootSequence$|^nRSectorCarrierRef$
+
+250224-10:57:50-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+Total: 0 MOs
+
+MAL03377> hgetc ru-|=aas-|Sector.*[^,]= (ad|op).*State|isSharedWithExternalMe|prod|(main|oper).*indicator|con.*power|noOf.xAntennas|sectorFunctionRef|availableHwOutputPower|reservedBy|arfcnDL|bSChannelBwDL
+
+250224-10:57:50-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+.........
+MO              ;configuredMaxTxPower;noOfRxAntennas;noOfTxAntennas;operationalState;reservedBy                                       ;sectorFunctionRef         
+SectorCarrier=1 ;60000               ;2             ;2             ;1 (ENABLED)     ;[2] = EUtranCellFDD=MAL03377_7A_1 UlCompGroup=1  ;SectorEquipmentFunction=1 
+SectorCarrier=10;5000                ;2             ;2             ;1 (ENABLED)     ;[2] = EUtranCellFDD=MAL03377_7A_3_F UlCompGroup=3;SectorEquipmentFunction=10
+SectorCarrier=11;5000                ;2             ;2             ;1 (ENABLED)     ;[1] = EUtranCellFDD=MAL03377_7B_3_F              ;SectorEquipmentFunction=11
+SectorCarrier=12;5000                ;2             ;2             ;1 (ENABLED)     ;[1] = EUtranCellFDD=MAL03377_7C_3_F              ;SectorEquipmentFunction=12
+SectorCarrier=2 ;60000               ;2             ;2             ;1 (ENABLED)     ;[2] = EUtranCellFDD=MAL03377_7B_1 UlCompGroup=1  ;SectorEquipmentFunction=2 
+SectorCarrier=3 ;60000               ;2             ;2             ;1 (ENABLED)     ;[2] = UlCompGroup=1 EUtranCellFDD=MAL03377_7C_1  ;SectorEquipmentFunction=3 
+SectorCarrier=4 ;120000              ;2             ;2             ;1 (ENABLED)     ;[2] = UlCompGroup=2 EUtranCellFDD=MAL03377_9A_1  ;SectorEquipmentFunction=4 
+SectorCarrier=5 ;120000              ;2             ;2             ;1 (ENABLED)     ;[2] = UlCompGroup=2 EUtranCellFDD=MAL03377_9B_1  ;SectorEquipmentFunction=5 
+SectorCarrier=6 ;120000              ;2             ;2             ;1 (ENABLED)     ;[2] = UlCompGroup=2 EUtranCellFDD=MAL03377_9C_1  ;SectorEquipmentFunction=6 
+SectorCarrier=7 ;79433               ;4             ;4             ;1 (ENABLED)     ;[2] = UlCompGroup=4 EUtranCellFDD=MAL03377_3A_1  ;SectorEquipmentFunction=7 
+SectorCarrier=8 ;80000               ;4             ;4             ;1 (ENABLED)     ;[2] = EUtranCellFDD=MAL03377_3B_1 UlCompGroup=4  ;SectorEquipmentFunction=8 
+SectorCarrier=9 ;80000               ;4             ;4             ;1 (ENABLED)     ;[2] = UlCompGroup=4 EUtranCellFDD=MAL03377_3C_1  ;SectorEquipmentFunction=9 
+...........
+MO                         ;administrativeState;isSharedWithExternalMe;maintenanceIndicator;operationalIndicator;operationalState;productName   ;productNumber;productRevision;productionDate;reservedBy;serialNumber
+FieldReplaceableUnit=RRU-1 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 11 B12   ;KRC 161 241/1;R3B            ;20140606      ;[0] =     ;CF81921906  
+FieldReplaceableUnit=RRU-10;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;Radio 4478 B14;KRC 161 669/3;R1E            ;20200221      ;[0] =     ;CF87325639  
+FieldReplaceableUnit=RRU-11;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;Radio 4478 B14;KRC 161 669/3;R1B            ;20171220      ;[0] =     ;CF84589841  
+FieldReplaceableUnit=RRU-12;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;Radio 4478 B14;KRC 161 669/3;R1B            ;20171213      ;[0] =     ;CF84575677  
+FieldReplaceableUnit=RRU-2 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 11 B12   ;KRC 161 241/1;R2G            ;20111206      ;[0] =     ;CF80027187  
+FieldReplaceableUnit=RRU-3 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS11        ;KRC 161 241/1;R2G            ;20110418      ;[0] =     ;CB4H411016  
+FieldReplaceableUnit=RRU-4 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 12 B2    ;KRC 161 299/2;R1M            ;20170809      ;[0] =     ;CF84324406  
+FieldReplaceableUnit=RRU-5 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 12 B2    ;KRC 161 299/2;R1M            ;20160926      ;[0] =     ;CF83547260  
+FieldReplaceableUnit=RRU-6 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 12 B2    ;KRC 161 299/2;R1C            ;20140708      ;[0] =     ;CF81980913  
+FieldReplaceableUnit=RRU-7 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 32 B30   ;KRC 161 423/1;R1F            ;20190516      ;[0] =     ;E553248796  
+FieldReplaceableUnit=RRU-8 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 32 B30   ;KRC 161 423/1;R1F            ;20190516      ;[0] =     ;E553248832  
+FieldReplaceableUnit=RRU-9 ;1 (UNLOCKED)       ;false                 ;2 (OFF)             ;3 (STEADY_ON)       ;1 (ENABLED)     ;RRUS 32 B30   ;KRC 161 423/1;R1F            ;20190516      ;[0] =     ;E553262491  
+......
+MO                        ;administrativeState;availableHwOutputPower;operationalState;reservedBy            
+SectorEquipmentFunction=1 ;1 (UNLOCKED)       ;60000                 ;1 (ENABLED)     ;[1] = SectorCarrier=1 
+SectorEquipmentFunction=10;1 (UNLOCKED)       ;80000                 ;1 (ENABLED)     ;[1] = SectorCarrier=10
+SectorEquipmentFunction=11;1 (UNLOCKED)       ;80000                 ;1 (ENABLED)     ;[1] = SectorCarrier=11
+SectorEquipmentFunction=12;1 (UNLOCKED)       ;80000                 ;1 (ENABLED)     ;[1] = SectorCarrier=12
+SectorEquipmentFunction=2 ;1 (UNLOCKED)       ;60000                 ;1 (ENABLED)     ;[1] = SectorCarrier=2 
+SectorEquipmentFunction=3 ;1 (UNLOCKED)       ;60000                 ;1 (ENABLED)     ;[1] = SectorCarrier=3 
+SectorEquipmentFunction=4 ;1 (UNLOCKED)       ;120000                ;1 (ENABLED)     ;[1] = SectorCarrier=4 
+SectorEquipmentFunction=5 ;1 (UNLOCKED)       ;120000                ;1 (ENABLED)     ;[1] = SectorCarrier=5 
+SectorEquipmentFunction=6 ;1 (UNLOCKED)       ;120000                ;1 (ENABLED)     ;[1] = SectorCarrier=6 
+SectorEquipmentFunction=7 ;1 (UNLOCKED)       ;100476                ;1 (ENABLED)     ;[1] = SectorCarrier=7 
+SectorEquipmentFunction=8 ;1 (UNLOCKED)       ;100476                ;1 (ENABLED)     ;[1] = SectorCarrier=8 
+SectorEquipmentFunction=9 ;1 (UNLOCKED)       ;100476                ;1 (ENABLED)     ;[1] = SectorCarrier=9 
+
+MAL03377> hgetc ulcompgroup= (ad|op|av).*stat|sectorCarrierRef
+
+250224-10:57:51-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+..
+MO           ;administrativeState;availabilityStatus ;operationalState;sectorCarrierRef                                     
+UlCompGroup=1;0 (LOCKED)         ;i[1] = 3 (OFF_LINE);0 (DISABLED)    ;[3] = SectorCarrier=3 SectorCarrier=1 SectorCarrier=2
+UlCompGroup=2;0 (LOCKED)         ;i[1] = 3 (OFF_LINE);0 (DISABLED)    ;[3] = SectorCarrier=5 SectorCarrier=6 SectorCarrier=4
+UlCompGroup=3;0 (LOCKED)         ;i[1] = 3 (OFF_LINE);0 (DISABLED)    ;[1] = SectorCarrier=10                               
+UlCompGroup=4;1 (UNLOCKED)       ;i[0] =             ;1 (ENABLED)     ;[3] = SectorCarrier=7 SectorCarrier=8 SectorCarrier=9
+
+MAL03377> print $Siteid:NR CELL CONFIG END
+
+MAL03377:NR CELL CONFIG END
+
+MAL03377> 
+
+MAL03377> print $Siteid:CELL CONFIG ENB_GNB START
+
+MAL03377:CELL CONFIG ENB_GNB START
+
+MAL03377> get ^enodebfunction=1 ^eNBId$
+
+250224-10:57:51-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+=================================================================================================================
+MO                                                      Attribute         Value
+=================================================================================================================
+ENodeBFunction=1                                        eNBId             63377
+=================================================================================================================
+Total: 1 MOs
+
+
+MAL03377> get ^GNBDUFunction=1 ^gNBId$
+
+250224-10:57:51-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+=================================================================================================================
+MO                                                      Attribute         Value
+=================================================================================================================
+=================================================================================================================
+Total: 0 MOs
+
+
+MAL03377> print $Siteid:CELL CONFIG ENB_GNB END
+
+MAL03377:CELL CONFIG ENB_GNB END
+
+MAL03377> 
+
+MAL03377> 
+
+MAL03377> print $Siteid:RET STATUS START
+
+MAL03377:RET STATUS START
+
+MAL03377> hgetc ^RetSubUnit= ^electricalAntennaTilt$|^iuantAntennaModelNumber$|^iuantAntennaSerialNumber$|^iuantBaseStationId$|^iuantSectorId$|^maxTilt$|^minTilt$|^operationalState$|^userLabel$|^reservedBy$
+
+250224-10:57:51-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+...........................
+MO                                               ;electricalAntennaTilt;iuantAntennaModelNumber;iuantAntennaSerialNumber;iuantBaseStationId;iuantSectorId;maxTilt;minTilt;operationalState;reservedBy                                             ;userLabel                    
+AntennaUnitGroup=1,AntennaNearUnit=1,RetSubUnit=1;20                   ;HPA65-H6-U-02          ;HJ1914AX1T00000WL       ;003173A--39L      ;ALPHA        ;80     ;0      ;1 (ENABLED)     ;[1] = AntennaUnitGroup=1,AntennaUnit=1,AntennaSubunit=1;003173A--39L__MAL03377_9A_1  
+AntennaUnitGroup=1,AntennaNearUnit=2,RetSubUnit=1;20                   ;HPA65-H6-B-03          ;HJ1914AX1T000000B       ;003173A--37L      ;ALPHA        ;100    ;0      ;1 (ENABLED)     ;[1] = AntennaUnitGroup=1,AntennaUnit=2,AntennaSubunit=1;003173A--37L__MAL03377_7A_1  
+AntennaUnitGroup=1,AntennaNearUnit=3,RetSubUnit=1;20                   ;HPA65-H6-U-02          ;HJ1914AX1T00000WR       ;003173A--3NN      ;ALPHA        ;80     ;0      ;1 (ENABLED)     ;[1] = AntennaUnitGroup=1,AntennaUnit=3,AntennaSubunit=1;003173A--3NN                 
+AntennaUnitGroup=1,AntennaNearUnit=4,RetSubUnit=1;20                   ;QS665122_R2_A          ;QS665122L51818198       ;003173A--1NN      ;ALPHA        ;100    ;20     ;1 (ENABLED)     ;[1] = AntennaUnitGroup=1,AntennaUnit=4,AntennaSubunit=1;003173A--1NN                 
+AntennaUnitGroup=1,AntennaNearUnit=5,RetSubUnit=1;20                   ;QS665122_Y1Y2_C        ;QS665122L51818198       ;003173A--13F      ;ALPHA        ;70     ;20     ;1 (ENABLED)     ;[1] = AntennaUnitGroup=1,AntennaUnit=5,AntennaSubunit=2;003173A--13F__MAL03377_3A_1  
+AntennaUnitGroup=1,AntennaNearUnit=6,RetSubUnit=1;20                   ;QS665122_B1B2_C        ;QS665122L51818198       ;003173A--1NN      ;ALPHA        ;70     ;20     ;1 (ENABLED)     ;[1] = AntennaUnitGroup=1,AntennaUnit=6,AntennaSubunit=3;003173A--1NN                 
+AntennaUnitGroup=1,AntennaNearUnit=7,RetSubUnit=1;20                   ;QS665122_R1_A          ;QS665122L51818198       ;003173A--1PM      ;ALPHA        ;100    ;20     ;1 (ENABLED)     ;[1] = AntennaUnitGroup=1,AntennaUnit=7,AntennaSubunit=4;003173A--1PM__MAL03377_7A_3_F
+AntennaUnitGroup=2,AntennaNearUnit=1,RetSubUnit=1;30                   ;HPA65-H6-U-02          ;HJ2714AX0M00000WL       ;003173B--39L      ;BETA         ;80     ;0      ;1 (ENABLED)     ;[1] = AntennaUnitGroup=2,AntennaUnit=1,AntennaSubunit=2;003173B--39L__MAL03377_9B_1  
+AntennaUnitGroup=2,AntennaNearUnit=2,RetSubUnit=1;20                   ;HPA65-H6-U-02          ;HJ2714AX0M00000WR       ;003173B--3NN      ;BETA         ;80     ;0      ;1 (ENABLED)     ;[1] = AntennaUnitGroup=2,AntennaUnit=2,AntennaSubunit=2;003173B--3NN                 
+AntennaUnitGroup=2,AntennaNearUnit=3,RetSubUnit=1;60                   ;HPA65-H6-B-03          ;HJ2714AX0M000000B       ;003173B--37L      ;BETA         ;100    ;0      ;1 (ENABLED)     ;[1] = AntennaUnitGroup=2,AntennaUnit=3,AntennaSubunit=2;003173B--37L__MAL03377_7B_1  
+AntennaUnitGroup=2,AntennaNearUnit=4,RetSubUnit=1;50                   ;QS665122_R1_A          ;QS665122J51418211       ;003173B--1PM      ;BETA         ;100    ;20     ;1 (ENABLED)     ;[1] = AntennaUnitGroup=2,AntennaUnit=4,AntennaSubunit=1;003173B--1PM__MAL03377_7B_3_F
+AntennaUnitGroup=2,AntennaNearUnit=5,RetSubUnit=1;20                   ;QS665122_R2_A          ;QS665122J51418211       ;003173B--1NN      ;BETA         ;100    ;20     ;1 (ENABLED)     ;[1] = AntennaUnitGroup=2,AntennaUnit=5,AntennaSubunit=2;003173B--1NN                 
+AntennaUnitGroup=2,AntennaNearUnit=6,RetSubUnit=1;20                   ;QS665122_Y1Y2_C        ;QS665122J51418211       ;003173B--13F      ;BETA         ;70     ;20     ;1 (ENABLED)     ;[1] = AntennaUnitGroup=2,AntennaUnit=6,AntennaSubunit=3;003173B--13F__MAL03377_3B_1  
+AntennaUnitGroup=2,AntennaNearUnit=7,RetSubUnit=1;20                   ;QS665122_B1B2_C        ;QS665122J51418211       ;003173B--1NN      ;BETA         ;70     ;20     ;1 (ENABLED)     ;[1] = AntennaUnitGroup=2,AntennaUnit=7,AntennaSubunit=4;003173B--1NN                 
+AntennaUnitGroup=3,AntennaNearUnit=1,RetSubUnit=1;20                   ;HPA65-H6-U-02          ;HJ2214AX9800000WL       ;003173C--19L      ;GAMMA        ;80     ;0      ;1 (ENABLED)     ;[1] = AntennaUnitGroup=3,AntennaUnit=1,AntennaSubunit=3;003173C--19L__MAL03377_9C_1  
+AntennaUnitGroup=3,AntennaNearUnit=2,RetSubUnit=1;0                    ;HPA65-H6-B-03          ;HJ2214AX98000000B       ;003173C--17L      ;GAMMA        ;100    ;0      ;1 (ENABLED)     ;[1] = AntennaUnitGroup=3,AntennaUnit=2,AntennaSubunit=3;003173C--17L__MAL03377_7C_1  
+AntennaUnitGroup=3,AntennaNearUnit=3,RetSubUnit=1;20                   ;HPA65-H6-U-02          ;HJ1918AX2500000WR       ;003173C--1NN      ;GAMMA        ;80     ;0      ;1 (ENABLED)     ;[1] = AntennaUnitGroup=3,AntennaUnit=3,AntennaSubunit=3;003173C--1NN                 
+AntennaUnitGroup=3,AntennaNearUnit=4,RetSubUnit=1;20                   ;QS665122_R2_A          ;QS665122L51818205       ;003173C--3NN      ;GAMMA        ;100    ;20     ;1 (ENABLED)     ;[1] = AntennaUnitGroup=3,AntennaUnit=4,AntennaSubunit=1;003173C--3NN                 
+AntennaUnitGroup=3,AntennaNearUnit=5,RetSubUnit=1;20                   ;QS665122_Y1Y2_C        ;QS665122L51818205       ;003173C--33F      ;GAMMA        ;70     ;20     ;1 (ENABLED)     ;[1] = AntennaUnitGroup=3,AntennaUnit=5,AntennaSubunit=2;003173C--33F__MAL03377_3C_1  
+AntennaUnitGroup=3,AntennaNearUnit=6,RetSubUnit=1;20                   ;QS665122_R1_A          ;QS665122L51818205       ;003173C--3PM      ;GAMMA        ;100    ;20     ;1 (ENABLED)     ;[1] = AntennaUnitGroup=3,AntennaUnit=6,AntennaSubunit=3;003173C--3PM__MAL03377_7C_3_F
+AntennaUnitGroup=3,AntennaNearUnit=7,RetSubUnit=1;20                   ;QS665122_B1B2_C        ;QS665122L51818205       ;003173C--3NN      ;GAMMA        ;70     ;20     ;1 (ENABLED)     ;[1] = AntennaUnitGroup=3,AntennaUnit=7,AntennaSubunit=4;003173C--3NN                 
+
+MAL03377> print $Siteid:RET STATUS END
+
+MAL03377:RET STATUS END
+
+MAL03377> print $Siteid:TMA STATUS START
+
+MAL03377:TMA STATUS START
+
+MAL03377> hgetc ^TmaSubUnit= ^operationalState$|dlAttenuation|dlTrafficDelay|userLabel|tmaType|iuantTmaSubunitFreqRangeRx|iuantTmaSubunitFreqRangeTx|reservedBy|ulTrafficDelay|Gain
+
+250224-10:57:53-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+Total: 0 MOs
+
+MAL03377> print $Siteid:TMA STATUS END
+
+MAL03377:TMA STATUS END
+
+MAL03377> print $Siteid:EXTERNAL ALARM SETTING START
+
+MAL03377:EXTERNAL ALARM SETTING START
+
+MAL03377> hgetc ^AlarmPort= administrativeState|alarmSlogan|normallyOpen|operationalState|perceivedSeverity
+
+250224-10:57:53-0500 2001:506:4450:41e8:0:0:3173:2 24.0f MSRBS_NODE_MODEL_24.Q3_198663.171.71_edc6 stopfile=/tmp/4618
+..............................................................................
+MO                                     ;administrativeState;alarmSlogan              ;normallyOpen;operationalState;perceivedSeverity
+FieldReplaceableUnit=RRU-1,AlarmPort=1 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-1,AlarmPort=2 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-1,AlarmPort=3 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-1,AlarmPort=4 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-1,AlarmPort=5 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-1,AlarmPort=6 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-1,AlarmPort=7 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-1,AlarmPort=8 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-10,AlarmPort=1;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-10,AlarmPort=2;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-11,AlarmPort=1;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-11,AlarmPort=2;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-2,AlarmPort=1 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-2,AlarmPort=2 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-2,AlarmPort=3 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-2,AlarmPort=4 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-2,AlarmPort=5 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-2,AlarmPort=6 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-2,AlarmPort=7 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-2,AlarmPort=8 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-3,AlarmPort=1 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-3,AlarmPort=2 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-3,AlarmPort=3 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-3,AlarmPort=4 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-3,AlarmPort=5 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-3,AlarmPort=6 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-3,AlarmPort=7 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-3,AlarmPort=8 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-4,AlarmPort=1 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-4,AlarmPort=2 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-4,AlarmPort=3 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-4,AlarmPort=4 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-4,AlarmPort=5 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-4,AlarmPort=6 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-4,AlarmPort=7 ;0 (LOCKED)         ;                         ;false       ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-4,AlarmPort=8 ;0 (LOCKED)         ;                         ;false       ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-5,AlarmPort=1 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-5,AlarmPort=2 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-5,AlarmPort=3 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-5,AlarmPort=4 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-5,AlarmPort=5 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-5,AlarmPort=6 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-5,AlarmPort=7 ;0 (LOCKED)         ;                         ;false       ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-5,AlarmPort=8 ;0 (LOCKED)         ;                         ;false       ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-6,AlarmPort=1 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-6,AlarmPort=2 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-6,AlarmPort=3 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-6,AlarmPort=4 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-6,AlarmPort=5 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-6,AlarmPort=6 ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-6,AlarmPort=7 ;0 (LOCKED)         ;                         ;false       ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-6,AlarmPort=8 ;0 (LOCKED)         ;                         ;false       ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-7,AlarmPort=1 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-7,AlarmPort=2 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-7,AlarmPort=3 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-7,AlarmPort=4 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-7,AlarmPort=5 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-7,AlarmPort=6 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-7,AlarmPort=7 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-7,AlarmPort=8 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-8,AlarmPort=1 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-8,AlarmPort=2 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-8,AlarmPort=3 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-8,AlarmPort=4 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-8,AlarmPort=5 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-8,AlarmPort=6 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-8,AlarmPort=7 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-8,AlarmPort=8 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-9,AlarmPort=1 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-9,AlarmPort=2 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-9,AlarmPort=3 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-9,AlarmPort=4 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-9,AlarmPort=5 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-9,AlarmPort=6 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=RRU-9,AlarmPort=7 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=RRU-9,AlarmPort=8 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=1   ;1 (UNLOCKED)       ;RBS INTRUSION            ;false       ;1 (ENABLED)     ;3 (MAJOR)        
+FieldReplaceableUnit=SAU,AlarmPort=10  ;1 (UNLOCKED)       ;RBS GROUND BAR THEFT     ;false       ;1 (ENABLED)     ;2 (CRITICAL)     
+FieldReplaceableUnit=SAU,AlarmPort=11  ;1 (UNLOCKED)       ;RBS BATT ON DISCHARGE    ;false       ;1 (ENABLED)     ;2 (CRITICAL)     
+FieldReplaceableUnit=SAU,AlarmPort=12  ;1 (UNLOCKED)       ;RBS FIRE PANEL FAULT     ;false       ;1 (ENABLED)     ;2 (CRITICAL)     
+FieldReplaceableUnit=SAU,AlarmPort=13  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=14  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=15  ;0 (LOCKED)         ;                         ;false       ;1 (ENABLED)     ;3 (MAJOR)        
+FieldReplaceableUnit=SAU,AlarmPort=16  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=17  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=18  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=19  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=2   ;1 (UNLOCKED)       ;RBS FIRE SUPP DISCHARGE  ;false       ;1 (ENABLED)     ;2 (CRITICAL)     
+FieldReplaceableUnit=SAU,AlarmPort=20  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=21  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=22  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=23  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=24  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=25  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=26  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=27  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=28  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=29  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=3   ;1 (UNLOCKED)       ;RBS TEMP HIGH            ;false       ;1 (ENABLED)     ;2 (CRITICAL)     
+FieldReplaceableUnit=SAU,AlarmPort=30  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=31  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=32  ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SAU,AlarmPort=4   ;1 (UNLOCKED)       ;RBS SMOKE                ;false       ;1 (ENABLED)     ;2 (CRITICAL)     
+FieldReplaceableUnit=SAU,AlarmPort=5   ;1 (UNLOCKED)       ;RBS COMMERCIAL POWER FAIL;true        ;1 (ENABLED)     ;2 (CRITICAL)     
+FieldReplaceableUnit=SAU,AlarmPort=6   ;1 (UNLOCKED)       ;RBS DC RECT MJ           ;false       ;1 (ENABLED)     ;3 (MAJOR)        
+FieldReplaceableUnit=SAU,AlarmPort=7   ;1 (UNLOCKED)       ;RBS PNC DC MJ            ;false       ;1 (ENABLED)     ;3 (MAJOR)        
+FieldReplaceableUnit=SAU,AlarmPort=8   ;1 (UNLOCKED)       ;RBS PWR AC SPD           ;false       ;1 (ENABLED)     ;3 (MAJOR)        
+FieldReplaceableUnit=SAU,AlarmPort=9   ;1 (UNLOCKED)       ;RBS DC RECT MN           ;true        ;1 (ENABLED)     ;3 (MAJOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=1 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=10;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=11;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=12;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=13;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=14;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=15;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=16;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=2 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=3 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=4 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=5 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=6 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=7 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=8 ;0 (LOCKED)         ;                         ;true        ;1 (ENABLED)     ;4 (MINOR)        
+FieldReplaceableUnit=SUP-1,AlarmPort=9 ;0 (LOCKED)         ;                         ;true        ;0 (DISABLED)    ;4 (MINOR)        
+
+MAL03377> print $Siteid:EXTERNAL ALARM SETTING END
+
+MAL03377:EXTERNAL ALARM SETTING END
+
+MAL03377> 
+
+MAL03377> 
+
+MAL03377> exit
+Bye...
+Output has been logged to file ./HC_LOG/Logfile_2025-02-24_21-19-14_MAL03377/MAL03377.log

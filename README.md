@@ -1,3 +1,5 @@
+Log Data Extraction & Transformation
+
 This project extracts specific table data from telecom-related log files and transforms it into structured Excel sheets for analysis.
 
 📂 Key Components
@@ -14,11 +16,11 @@ Output: A structured Excel file (extracted_tables.xlsx).
 
 Ensure you have the following installed:
 
-Python 3.x
+* Python 3.x
 
-Pandas
+* Pandas
 
-XlsxWriter
+* XlsxWriter
 
 Install dependencies using:
 
@@ -26,11 +28,14 @@ pip install pandas xlsxwriter
 
 2️⃣ Running the Code
 
-Place the log file (HC_Log_YYYY-MM-DD_HH-MM-SS.txt) in the working directory.
+1. Place the log file (HC_Log_YYYY-MM-DD_HH-MM-SS.txt) in the working directory.
 
-Run the script:
+2. Run the extraction script:
 
 python extract.py
+
+3. Run the transformation script:
+
 python transform.py
 
 📤 Extraction Process (extract.py)
@@ -39,20 +44,17 @@ The extraction code reads and extracts relevant tabular data based on predefined
 
 🔍 How It Works
 
-Reads the log file line by line.
+* Reads the log file line by line.
 
-Identifies table sections using start and end markers.
+* Identifies table sections using start and end markers.
 
-Extracts data within the markers.
+* Extracts data within the markers.
 
-Saves extracted tables in memory for transformation.
+* Saves extracted tables in memory for transformation.
 
 🚀 Code Structure
 
 # Read log file
-with open(log_file_path, "r", encoding="utf-8") as file:
-    log_data = file.readlines()
-
 # Function to extract table data
 def extract_table(log_data, start_marker, end_marker):
     extracting = False
@@ -74,13 +76,13 @@ The transformation code processes the extracted tables and saves them into struc
 
 🔍 How It Works
 
-Converts extracted tables into Pandas DataFrames.
+* Converts extracted tables into Pandas DataFrames.
 
-Cleans up data by filtering out empty rows.
+* Cleans up data by filtering out empty rows.
 
-Ensures correct column alignment.
+* Ensures correct column alignment.
 
-Merges related tables.
+* Merges related tables.
 
 Saves structured data in an Excel file (extracted_tables.xlsx).
 
@@ -103,10 +105,18 @@ writer.close()
 
 extracted_tables.xlsx contains structured data in separate sheets:
 
-LTE_CELL_STATUS
+* LTE_CELL_STATUS
 
-VSWR
+* VSWR
 
-CELL_CONFIG_NAME
+* CELL_CONFIG_NAME
 
-Other extracted tables
+Other Extracted Tables:
+
+* VSWR SUPERVISION
+
+* RRU STATUS
+
+* RILINK STATUS
+
+* ANTENNANEARUNIT STATUS
